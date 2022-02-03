@@ -1,0 +1,1 @@
+{"ast":null,"code":"export { default } from \"./NewPasswordScreen\";","map":{"version":3,"sources":["C:/Users/DCV/Documents/ReactNativeProjekt/EarthCrew/src/screens/NewPasswordScreen/index.js"],"names":["default"],"mappings":"AAAA,SAAQA,OAAR","sourcesContent":["export {default} from './NewPasswordScreen';\r\n"]},"metadata":{},"sourceType":"module"}

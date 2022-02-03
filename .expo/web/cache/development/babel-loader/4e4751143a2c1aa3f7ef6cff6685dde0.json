@@ -1,0 +1,1 @@
+{"ast":null,"code":"export { default } from \"./SignUpScreen\";","map":{"version":3,"sources":["C:/Users/DCV/Documents/ReactNativeProjekt/EarthCrew/src/screens/SignUpScreen/index.js"],"names":["default"],"mappings":"AAAA,SAASA,OAAT","sourcesContent":["export { default } from './SignUpScreen';\r\n"]},"metadata":{},"sourceType":"module"}
