@@ -10,9 +10,7 @@ const Settings = () => {
     return (
         <View style={styles.container}>
             <Button title='Logout' onPress={async () => {
-                console.log("HEY_")
                 await AsyncStorage.removeItem("persist:root")
-                console.log("CAKKED")
                 navigation.navigate("Login")
             }} />
         </View>

@@ -17,8 +17,7 @@ const AppMenu = () => {
             screenOptions={{
                 tabBarActiveTintColor: 'green',
                 tabBarStyle: { backgroundColor: 'transparent' }
-            }}
-        >
+            }}>
             <Tab.Screen
                 name='Upload'
                 component={Upload}
@@ -28,12 +27,10 @@ const AppMenu = () => {
                             <Ionicons
                                 name='cloud-upload-outline'
                                 size={size}
-                                color={color}
-                            />
+                                color={color} />
                         );
                     }
-                }}
-            />
+                }} />
             <Tab.Screen
                 name='Camera'
                 component={Camera}
@@ -43,13 +40,10 @@ const AppMenu = () => {
                             <Ionicons
                                 name='camera-outline'
                                 size={size}
-                                color={color}
-
-                            />
+                                color={color} />
                         );
                     }
-                }}
-            />
+                }} />
             <Tab.Screen name='Data'
                 component={Data}
                 options={{
@@ -62,8 +56,7 @@ const AppMenu = () => {
                             />
                         );
                     }
-                }}
-            />
+                }} />
             <Tab.Screen name='Map'
                 component={Map}
                 options={{
@@ -72,12 +65,10 @@ const AppMenu = () => {
                             <Ionicons
                                 name="map-outline"
                                 size={size}
-                                color={color}
-                            />
+                                color={color} />
                         );
                     }
-                }}
-            />
+                }} />
             <Tab.Screen name='Settings'
                 component={Settings}
                 options={{
@@ -86,12 +77,10 @@ const AppMenu = () => {
                             <Ionicons
                                 name='settings-outline'
                                 size={size}
-                                color={color}
-                            />
+                                color={color} />
                         );
                     }
-                }}
-            />
+                }} />
         </Tab.Navigator>
     )
 }

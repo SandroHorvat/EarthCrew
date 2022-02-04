@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { TouchableOpacity, Dimensions, StyleSheet, Text, View, ImageBackground } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Camera as ExpoCamera } from 'expo-camera';
 import * as Location from 'expo-location';
 import { Ionicons } from '@expo/vector-icons';
@@ -11,7 +11,6 @@ const Camera = ({ navigation }) => {
     const [hasPermission, setHasPermission] = useState(false);
     const [camera, setCamera] = useState(null);
     const [location, setLocation] = useState(null);
-    const [photoId, setPhotoId] = useState(null);
     const [photo, setPhoto] = useState(null);
     const [flashMode, setFlashMode] = useState('off');
 
@@ -133,9 +132,7 @@ const Camera = ({ navigation }) => {
             style={[styles.cameraScreen, { marginTop: imagePadding, marginBottom: imagePadding }]}
             onCameraReady={setCameraReady}
             ratio={ratio}
-            ref={(ref) => {
-                setCamera(ref);
-            }}
+            ref={(ref) => { setCamera(ref) }}
             autoFocus='on'
             flashMode={flashMode}
         >
@@ -152,35 +149,25 @@ const Camera = ({ navigation }) => {
                     <Ionicons
                         color="white"
                         name="camera-reverse-outline"
-                        size={SCREEN_HEIGHT * 0.08}
-                    />
+                        size={SCREEN_HEIGHT * 0.08} />
                 </TouchableOpacity>
-
                 <TouchableOpacity
                     style={styles.cameraButton}
-                    onPress={
-                        capture
-                    }>
+                    onPress={capture}>
                     <Ionicons
                         color="white"
                         name="radio-button-on-outline"
-                        size={SCREEN_HEIGHT * 0.08}
-                    />
+                        size={SCREEN_HEIGHT * 0.08} />
                 </TouchableOpacity>
-
                 <TouchableOpacity
-                    onPress={flashSwitchHandler}
-                >
+                    onPress={flashSwitchHandler}>
                     <Ionicons
-                        name={
-                            flashMode !== 'off'
-                                ? 'flash'
-                                : 'flash-off'
-                        }
+                        name={flashMode !== 'off'
+                            ? 'flash'
+                            : 'flash-off'}
                         size={30}
                         color="white"
-                        style={styles.flashModeButton}
-                    />
+                        style={styles.flashModeButton} />
                 </TouchableOpacity>
             </View>
         </ExpoCamera >

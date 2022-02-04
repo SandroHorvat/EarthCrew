@@ -62,8 +62,7 @@ const Map = () => {
                     key: 'AIzaSyCnQevVUua2qjIGihUv1_a1AIZLFwTzq0o',
                     language: 'en',
                     type: 'establishment'
-                }}
-            />
+                }} />
             <MapView
                 style={styles.map}
                 mapType='standard'
@@ -73,16 +72,14 @@ const Map = () => {
                 userLocationFastestInterval={5000}
                 showsCompass={true}
                 zoomEnabled={true}
-                provider="google"
-            >
+                provider="google" >
                 <Marker
                     coordinate={{
                         latitude: litters[0].latitude,
                         longitude: litters[0].longitude
                     }}
                     title={litters[0].type}
-                    description={litters[0].type}
-                >
+                    description={litters[0].type}>
                 </Marker >
             </MapView>
         </View >

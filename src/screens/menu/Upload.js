@@ -67,7 +67,6 @@ const Upload = ({ route }) => {
                             size={25}
                             style={styles.modalClose}
                             onPress={() => setModalOpen(false)} />
-
                         <View style={styles.card}>
                             <Card >
                                 <Card.Title  >
@@ -84,15 +83,13 @@ const Upload = ({ route }) => {
                             thumbColor={pickedUp ? "#006400" : "#800000"}
                             ios_backgroundColor="#ff0000"
                             onValueChange={toggleSwitch}
-                            value={pickedUp}
-                        />
+                            value={pickedUp} />
                         <TextInput
                             style={styles.input}
                             onChangeText={onChangeText}
                             value={text}
                             placeholder="Fill the type of litter in here"
-                            keyboardType='default'
-                        />
+                            keyboardType='default' />
                         <TouchableOpacity
                             style={styles.sendButton}
                             onPress={() => {
@@ -105,7 +102,7 @@ const Upload = ({ route }) => {
                         </TouchableOpacity>
                     </View>
                 </Modal>
-                
+
             </SafeAreaView >
         );
     } else {
