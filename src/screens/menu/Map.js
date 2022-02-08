@@ -11,6 +11,24 @@ import axios from 'axios';
 const Map = () => {
     const [location, setLocation] = useState(null);
     const [litters, setLitters] = useState([])
+    const [marks, setMarks] = useState([{
+        title: "hello",
+        key: 1,
+        coordinates: {
+            latitude: 3.148561,
+            longitude: 101.652778
+        },
+    },
+    {
+        title: "hello",
+        key: 2,
+        coordinates: {
+            latitude: 3.149771,
+            longitude: 101.655449
+        },
+    }])
+
+    console.log(marks[0].coordinates)
 
     // Load actual position of user
     useEffect(() => {
@@ -25,7 +43,7 @@ const Map = () => {
         })();
     }, []);
 
-    useEffect(() => {
+    const loadLitters = () => {
         // Load litters and set state
         let baseUrl = "http://178.18.252.126:1337"
         axios({
@@ -38,9 +56,13 @@ const Map = () => {
             console.log(litters[0].type)
             console.log(litters[0].latitude)
             console.log(litters[0].longitude)
+        }
+        )
+    }
 
-        });
-    }, [])
+    const deleteMarks = () => {
+        setMarks({ marks: [] });
+    }
 
     if (location == null || litters == null) {
         return (
@@ -51,50 +73,33 @@ const Map = () => {
     }
 
     return (
-        <View style={styles.container} >
-            <GooglePlacesAutocomplete
-                placeholder='Search'
-                fetchDetails={true}
-                GooglePlacesSearchQuery={{
-                    rankby: "distance"
-                }}
-                query={{
-                    key: 'AIzaSyCnQevVUua2qjIGihUv1_a1AIZLFwTzq0o',
-                    language: 'en',
-                    type: 'establishment'
-                }} />
+        <View style={{ flex: 1 }} >
             <MapView
                 style={styles.map}
                 mapType='standard'
                 showsUserLocation={true}
                 showsMyLocationButton={true}
+                followsUserLocation={true}
                 showsBuildings={true}
                 userLocationFastestInterval={5000}
-                showsCompass={true}
                 zoomEnabled={true}
-                provider="google" >
-                <Marker
-                    coordinate={{
-                        latitude: litters[0].latitude,
-                        longitude: litters[0].longitude
-                    }}
-                    title={litters[0].type}
-                    description={litters[0].type}>
-                </Marker >
+                provider="google">
+
+                {marks.map(marks => (
+                    <Marker
+                        key={marks[0].key}
+                        coordinate={marks[0].coordinates}
+                    />
+                ))}
             </MapView>
         </View >
     )
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'flex-end',
-    },
     map: {
-        width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height
-    }
-});
+        ...StyleSheet.absoluteFillObject
+    },
+})
 
 export default Map;

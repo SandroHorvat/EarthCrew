@@ -13,6 +13,8 @@ const Camera = ({ navigation }) => {
     const [location, setLocation] = useState(null);
     const [photo, setPhoto] = useState(null);
     const [flashMode, setFlashMode] = useState('off');
+    const [isDisabled, setIsDisabled] = useState(false);
+    const [sendStatus, setSendStatus] = useState(null);
 
     // Screen Ratio and image padding
     const [imagePadding, setImagePadding] = useState(0);
@@ -99,7 +101,9 @@ const Camera = ({ navigation }) => {
         if (camera && hasPermission == true) {
             const photo = await camera.takePictureAsync();
             setPhoto(photo.uri)
-            navigation.navigate("Upload", { location: location, photo: photo });
+            setIsDisabled(false)
+            setSendStatus(null)
+            navigation.navigate("Upload", { location: location, photo: photo, isDisabled: isDisabled, sendStatus: sendStatus });
         }
     }
 
