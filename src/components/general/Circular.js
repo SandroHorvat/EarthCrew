@@ -66,6 +66,7 @@ const Circular = () => {
                 fill={userData}
                 tintColor="#00e0ff"
                 backgroundColor="#3d5875"
+                
             >
                 {
                     (fill) => (

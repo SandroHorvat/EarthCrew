@@ -5,7 +5,6 @@ import * as Location from 'expo-location';
 import { Ionicons } from '@expo/vector-icons';
 import LoadingCamera from '../loading/LoadingCamera';
 
-
 const Camera = ({ navigation }) => {
     const [type, setType] = useState(ExpoCamera.Constants.Type.back);
     const [hasPermission, setHasPermission] = useState(false);

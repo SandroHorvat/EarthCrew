@@ -1,22 +1,22 @@
 "use strict"
 
 import React, { useEffect, useState } from 'react';
-import MapView, { AnimatedRegion, Callout, Marker } from 'react-native-maps';
-import { StyleSheet, Text, View, Dimensions, Image, TouchableOpacity, Button } from 'react-native';
+import MapView, { Marker } from 'react-native-maps';
+import { Alert, Button, StyleSheet, View } from 'react-native';
 import * as Location from 'expo-location';
 import LoadingMap from '../loading/LoadingMap';
-import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import axios from 'axios';
 
 const Map = () => {
     const [location, setLocation] = useState(null);
     const [litters, setLitters] = useState([])
+    const [showBox, setShowBox] = useState(true);
     const [marks, setMarks] = useState([{
         title: "hello",
         key: 1,
         coordinates: {
-            latitude: 3.148561,
-            longitude: 101.652778
+            latitude: 47.41635677999391,
+            longitude: 9.751806868932027
         },
     },
     {
@@ -61,8 +61,42 @@ const Map = () => {
     }
 
     const deleteMarks = () => {
+        showConfirmDialog()
         setMarks({ marks: [] });
     }
+
+    const showConfirmDialog = () => {
+        return Alert.alert(
+            "Are you sure you want to remove the litters you have uploaded?",
+            [
+                // The "Yes" button
+                {
+                    text: "Yes",
+                    onPress: () => {
+                        setShowBox(false);
+                        setMarks({ marks: [] });
+                    },
+                },
+                // The "No" button
+                // Does nothing but dismiss the dialog when tapped
+                {
+                    text: "No",
+                },
+            ]
+        )
+    }
+
+
+    const mapMarkers = () => {
+        return marks.map((marks) =>
+            <Marker
+                key={marks.key}
+                coordinate={marks.coordinates}
+                title={marks.location}>
+            </Marker>
+        )
+    }
+
 
     if (location == null || litters == null) {
         return (
@@ -84,14 +118,9 @@ const Map = () => {
                 userLocationFastestInterval={5000}
                 zoomEnabled={true}
                 provider="google">
-
-                {marks.map(marks => (
-                    <Marker
-                        key={marks[0].key}
-                        coordinate={marks[0].coordinates}
-                    />
-                ))}
+                {mapMarkers}
             </MapView>
+            <Button title='Delete Marks' onPress={showConfirmDialog()} />
         </View >
     )
 }
@@ -99,6 +128,12 @@ const Map = () => {
 const styles = StyleSheet.create({
     map: {
         ...StyleSheet.absoluteFillObject
+    },
+    box: {
+        width: 300,
+        height: 300,
+        backgroundColor: "red",
+        marginBottom: 30,
     },
 })
 

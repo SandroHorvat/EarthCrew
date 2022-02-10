@@ -1,9 +1,9 @@
 "use strict"
 
-import React, { useEffect, useState, useRef } from 'react';
-import { Animated, Button, StyleSheet, View, Image, Text, TouchableOpacity, TouchableHighlight, TextInput, SafeAreaView, Switch, Dimensions, Modal, Alert } from 'react-native';
-import { Card } from 'react-native-elements';
-import { AntDesign, Entypo, Ionicons } from '@expo/vector-icons';
+import React, {useState } from 'react';
+import { StyleSheet, View, Image, Text, TouchableOpacity, TextInput, SafeAreaView, Switch, Dimensions, Modal } from 'react-native';
+import { Card } from 'react-native-elements'
+import { AntDesign, Ionicons } from '@expo/vector-icons';
 import axios from 'axios';
 import Toast from 'react-native-toast-message';
 import Tooltip from 'react-native-walkthrough-tooltip';

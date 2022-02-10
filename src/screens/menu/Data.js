@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { View, StyleSheet, Dimensions, ViewBase, SafeAreaView, Animated, Text } from 'react-native'
+
+import { View, StyleSheet, SafeAreaView, } from 'react-native'
 
 import Circular from '../../components/general/Circular';
 
