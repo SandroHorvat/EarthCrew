@@ -2,9 +2,8 @@
 
 import React, { useEffect, useState } from 'react';
 import MapView, { Marker } from 'react-native-maps';
-import { Alert, Button, StyleSheet, View } from 'react-native';
+import { Alert, ActivityIndicator, Button, StyleSheet, View } from 'react-native';
 import * as Location from 'expo-location';
-import LoadingMap from '../loading/LoadingMap';
 import axios from 'axios';
 
 const Map = () => {
@@ -86,7 +85,6 @@ const Map = () => {
         )
     }
 
-
     const mapMarkers = () => {
         return marks.map((marks) =>
             <Marker
@@ -100,8 +98,10 @@ const Map = () => {
 
     if (location == null || litters == null) {
         return (
-            <View>
-                <LoadingMap />
+            <View style={[styles.container, styles.horizontal]}>
+                <View>
+                    <ActivityIndicator size="large" color={"green"} />
+                </View>
             </View>
         )
     }
@@ -126,15 +126,25 @@ const Map = () => {
 }
 
 const styles = StyleSheet.create({
-    map: {
-        ...StyleSheet.absoluteFillObject
-    },
     box: {
         width: 300,
         height: 300,
-        backgroundColor: "red",
+        backgroundColor: "#b5ff9a",
         marginBottom: 30,
     },
+    container: {
+        flex: 1,
+        justifyContent: "center"
+    },
+    horizontal: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    map: {
+        ...StyleSheet.absoluteFillObject
+    },
+
 })
 
 export default Map;

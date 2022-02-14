@@ -1,6 +1,6 @@
 "use strict"
 
-import React, {useState } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View, Image, Text, TouchableOpacity, TextInput, SafeAreaView, Switch, Dimensions, Modal } from 'react-native';
 import { Card } from 'react-native-elements'
 import { AntDesign, Ionicons } from '@expo/vector-icons';
@@ -194,7 +194,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#38c172',
+        backgroundColor: '#b5ff9a',
     },
     input: {
         position: 'absolute',
@@ -205,13 +205,13 @@ const styles = StyleSheet.create({
         padding: 10,
         top: 30,
         borderRadius: 10,
-        borderColor: "white"
+        borderColor: "green"
     },
     modalContainer: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#38c172',
+        backgroundColor: '#b5ff9a',
     },
     modalClose: {
         position: 'absolute',

@@ -1,7 +1,7 @@
 "use strict"
 
 import axios from 'axios';
-import { StyleSheet, SafeAreaView, Text, TouchableOpacity, View, KeyboardAvoidingView } from 'react-native';
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View, KeyboardAvoidingView } from 'react-native';
 import React, { useState } from 'react';
 import { Headline, Paragraph, TextInput, Button } from 'react-native-paper';
 import Toast from 'react-native-toast-message';
@@ -17,108 +17,155 @@ const Register = ({ navigation }) => {
     const [password, setPassword] = useState("");
     const [showTip, setTip] = useState(false);
 
+    const validEmail = new RegExp('^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$');
+
     /**
     * 
-   PassMeter has 5 level of security. It's checks the typed password string has any upper case, lower case, numbers and special characters. Password string can be at least 4 character.
-   Strength Level	Description	Example
-   0	Length of the password is below then gived or default minLenght	"ac", "A2b", "1&", ...
-   1	Password has at least one upper case, lower case, numbers and special characters	"example", "PASSWORD", "%+%&/!", ...
-   2	Password contains only two condition of the required	"exAmpLe", "pa22w0rd", "PA\$\$W%RD!", ...
-   3	Password contains only three condition of the required	"3xAmpL3", "^!22w0rd&6", "pA\$\$W%RD!", ...
+    zxcvbn is a password strength estimator inspired by password crackers. Through pattern matching and conservative estimation, it recognizes and weighs 30k common passwords, 
+    common names and surnames according to US census data, popular English words from Wikipedia and US television and movies, and other common patterns like dates, repeats (aaa), 
+    sequences (abcd), keyboard patterns (qwertyuiop), and l33t speak.
+    
+    Consider using zxcvbn as an algorithmic alternative to password composition policy — it is more secure, flexible, and usable when sites require a minimal complexity score in place 
+    of annoying rules like "passwords must contain three of {lower, upper, numbers, symbols}".
     */
 
     const register = () => {
+        //All field required to fill out
+        if (!identifier || !email || !password) {
+            showToastFailed()
 
-        validate()
-        axios
-            .post('http://178.18.252.126:1337/auth/local/register', {
-                username: identifier,
-                email: email,
-                password: password,
-            })
-            .then(response => {
-                // Handle success.
-                console.log('Well done!');
-                console.log('User profile', response.data.user);
-                console.log('User token', response.data.jwt);
-            })
-            .catch(error => {
-                // Handle error.
-                console.log('An error occurred:', error.response);
-            });
-        showToast()
+        } else if (!validEmail.test(email)) {
+            showToastEmailWrong()
+        }
+        else if (password.length <= 7) {
+            showToastPasswordTooShort()
+        }
+        else {
+            axios
+                .post('http://178.18.252.126:1337/auth/local/register', {
+                    username: identifier,
+                    email: email,
+                    password: password,
+                })
+                .then(response => {
+                    // Handle success.
+                    console.log('Well done!');
+                    console.log('User profile', response.data.user);
+                    console.log('User token', response.data.jwt);
+                })
+                .catch(error => {
+                    // Handle error.
+                    console.log('An error occurred:', error.response);
+                });
+            showToast()
+        }
     }
-
 
     const showToast = () => {
         {
             Toast.show({
                 type: 'success',
-                text1: 'Successfully registered',
+                text1: 'Success',
                 text2: 'Your account was succesfully registered 👋'
             })
         }
     }
 
+    const showToastFailed = () => {
+        {
+            Toast.show({
+                type: "error",
+                text1: 'Fields',
+                text2: 'All fields must be outfilled ❌'
+            })
+        }
+    }
+
+    const showToastEmailWrong = () => {
+        {
+            Toast.show({
+                type: "error",
+                text1: 'Email',
+                text2: 'Email type is not valid ❌'
+            })
+        }
+    }
+
+    const showToastPasswordTooShort = () => {
+        {
+            Toast.show({
+                type: "error",
+                text1: 'Password',
+                text2: 'Password is too short ❌'
+            })
+        }
+    }
+
     return (
-        <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}
-            style={styles.container}>
+        <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>
+            <ScrollView>
 
-            <Button onPress={() => { navigation.goBack() }} style={styles.backButton}><Text> Go Back</Text></Button>
+                <Button onPress={() => { navigation.goBack() }} style={styles.backButton}><Text> Go Back</Text></Button>
 
-            <View style={styles.header}>
-                <Headline style={styles.appTitle}>EarthCrew</Headline>
-                <Paragraph style={styles.appDesc}>
-                    Register to access the EarthCrew.
-                </Paragraph>
-            </View>
+                <View style={styles.header}>
+                    <Headline style={styles.appTitle}>EarthCrew</Headline>
+                    <Paragraph style={styles.appDesc}>
+                        Register to access the EarthCrew.
+                    </Paragraph>
+                </View>
 
-            <View style={styles.divider} />
-            <TextInput
-                value={email}
-                onChangeText={text => setEmail(text)}
-                label="Email"
-                placeholder="*Username or email">
-            </TextInput>
+                <View style={styles.divider} />
+                <TextInput
+                    value={email}
+                    onChangeText={text => setEmail(text)}
+                    label="*Email">
+                </TextInput>
 
-            <View style={styles.divider} />
-            <TextInput
-                value={identifier}
-                onChangeText={text => setIdentifier(text)}
-                label="Username"
-                placeholder="*Username">
-            </TextInput>
+                <View style={styles.divider} />
+                <TextInput
+                    value={identifier}
+                    onChangeText={text => setIdentifier(text)}
+                    label="*Username">
+                </TextInput>
 
-            <View style={styles.divider} />
+                <View style={styles.divider} />
 
-            <TextInput
-                label="Password"
-                placeholder="Password"
-                onChangeText={text => setPassword(text)}
-                secureTextEntry />
+                <TextInput
+                    label="Password"
+                    onChangeText={text => setPassword(text)}
+                    secureTextEntry
+                    passwordRules=''
+                />
 
 
-            <PasswordStrengthMeter password={password} />
+                <PasswordStrengthMeter password={password} />
 
-            <Button onPress={() => { register() }}><Text>Register</Text></Button>
+                <Button onPress={() => { register() }}><Text>Register</Text></Button>
 
-            <Toast />
+                <Toast />
 
-            <Tooltip
-                isVisible={showTip}
-                content={<Text>Password</Text>}
-                placement="top"
-                onClose={() => setTip(false)}
-                // below is for the status bar of react navigation bar
-                topAdjustment={Platform.OS === 'android' ? -StatusBar.currentHeight : 0}>
-                <TouchableOpacity
-                    style={[styles.infoBox, styles.button]}
-                    onPress={() => setTip(true)}>
-                    <Text>Information</Text>
-                </TouchableOpacity>
-            </Tooltip>
-
+                <Tooltip
+                    isVisible={showTip}
+                    content={<Text>
+                        We have no special password guidelines but we consider you to create a password with this rules:{"\n"}{"\n"}
+                        The only fixed rule is that the password must be longer than 6 characters.{"\n"}{"\n"}
+                        • A mixture of both uppercase and lowercase letters{"\n"}
+                        • A mixture of letters and numbers{"\n"}
+                        • Inclusion of at least one special character, e.g., ! @ # ? ]</Text>}
+                    placement="center"
+                    tooltipStyle
+                    onClose={() => setTip(false)}
+                    // below is for the status bar of react navigation bar
+                    topAdjustment={Platform.OS === 'android' ? -StatusBar.currentHeight : 0}>
+                    <TouchableOpacity
+                        style={[styles.infoBox, styles.button]}
+                        onPress={() => setTip(true)}>
+                        <Text>Information</Text>
+                    </TouchableOpacity>
+                </Tooltip>
+            </ScrollView>
         </KeyboardAvoidingView>
+
     )
 }
 

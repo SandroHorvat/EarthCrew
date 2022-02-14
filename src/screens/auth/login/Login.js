@@ -5,11 +5,11 @@ import { Headline, Paragraph, TextInput, Button, Snackbar, Portal } from 'react-
 import { useNavigation } from '@react-navigation/core';
 
 const Login = () => {
-    const [identifier, setIdentifier] = React.useState("test@gmail.com");
-    const [password, setPassword] = React.useState("123123");
-    const [visible, setVisible] = React.useState(false);
-    const [loading, setLoading] = React.useState(false);
-    const [error, setError] = React.useState(false);
+    const [identifier, setIdentifier] = useState("test@gmail.com");
+    const [password, setPassword] = useState("123123");
+    const [visible, setVisible] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
     const navigation = useNavigation();
 
     const validateInput = () => {
@@ -27,6 +27,7 @@ const Login = () => {
     const authenticateUser = async () => {
         if (validateInput()) {
             setLoading(true);
+            
             const user = new UserModel(identifier, password);
 
             try {
@@ -53,31 +54,25 @@ const Login = () => {
                 <Paragraph style={styles.appDesc}>
                     <Image
                         style={styles.logo}
-                        source={require('./Logo.jpg')}
-                    />
+                        source={require('./Logo.jpg')} />
                 </Paragraph>
             </View>
 
-            <>
                 <View style={styles.divider} />
                 <TextInput
                     value={identifier}
                     onChangeText={text => setIdentifier(text)}
-                    label="*Username or email"
-                    placeholder="*Username or email">
+                    label="*Username or email">
                 </TextInput>
-            </>
-            <>
+           
                 <View style={styles.divider} />
                 <TextInput
                     value={password}
                     onChangeText={text => setPassword(text)}
                     label="*Password"
-                    placeholder="*Password"
                     secureTextEntry>
                 </TextInput>
-            </>
-            <>
+         
                 <View style={styles.divider} />
                 <Button
                     loading={loading}
@@ -96,19 +91,11 @@ const Login = () => {
                     Register
                 </Button>
                 <View style={styles.divider} />
-                <View style={styles.divider} />
-            </>
-            <>
-                {/**
-             * We use a portal component to render
-             * the snackbar on top of everything else
-             * */}
                 <Portal>
                     <Snackbar visible={visible} onDismiss={() => setVisible(false)}>
                         {error}
                     </Snackbar>
                 </Portal>
-            </>
         </View>
     );
 };

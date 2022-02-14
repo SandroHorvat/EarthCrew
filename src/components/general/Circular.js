@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
-import { StyleSheet, Text, View, Dimensions, Image } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import axios from 'axios';
 
 let baseUrl = 'http://178.18.252.126:1337'
@@ -8,6 +8,7 @@ let baseUrl = 'http://178.18.252.126:1337'
 const Circular = () => {
 
     const [data, setData] = useState(0);
+    
     useEffect(() => {
         getAmountLitters()
     }, [])
@@ -66,7 +67,7 @@ const Circular = () => {
                 fill={userData}
                 tintColor="#00e0ff"
                 backgroundColor="#3d5875"
-                
+
             >
                 {
                     (fill) => (

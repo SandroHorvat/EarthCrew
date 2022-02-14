@@ -22,26 +22,22 @@ const Authentication = () => {
     // Screen options specify the same options for all of the screens in the navigator
     // Initial route name: which screen is showing first when we start the app
     return (<NavigationContainer>
-        <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName='Login'
-        >
+        <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName='Login'>
             <Stack.Screen
                 name="Login"
                 component={Login}
                 options={{
                     title: 'Loggen Sie sich bitte ein.'
-                }}
-            />
+                }} />
             <Stack.Screen
                 name="Register"
                 component={Register}
                 options={{
                     title: 'Registrieren Sie sich bitte.'
-                }}
-            />
+                }} />
             <Stack.Screen
                 name="App"
-                component={AppMenu}
-            />
+                component={AppMenu} />
         </Stack.Navigator>
     </NavigationContainer >
     )

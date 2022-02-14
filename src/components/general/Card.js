@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, Image, Text, TouchableOpacity, SafeAreaView, FlatList, Dimensions, Alert, Modal, Button } from 'react-native';
+import { StyleSheet, View} from 'react-native';
 
 const Card = () => {
+    
     const { photo } = route.params;
 
     return (
-
         <View style={styles.card}>
             <View style={styles.cardContent}>
                 {props.children}

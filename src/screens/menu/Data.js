@@ -17,7 +17,7 @@ const Data = () => {
 var styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#38c172',
+        backgroundColor: '#b5ff9a',
     },
     content: {
         justifyContent: 'center',

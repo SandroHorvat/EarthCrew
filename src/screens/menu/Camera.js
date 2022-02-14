@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Camera as ExpoCamera } from 'expo-camera';
 import * as Location from 'expo-location';
 import { Ionicons } from '@expo/vector-icons';
-import LoadingCamera from '../loading/LoadingCamera';
 
 const Camera = ({ navigation }) => {
     const [type, setType] = useState(ExpoCamera.Constants.Type.back);
@@ -119,9 +118,12 @@ const Camera = ({ navigation }) => {
     // Show the loading screen until location is loaded
     if (location == null) {
         return (
-            <View>
-                <LoadingCamera />
-            </View>)
+            <View style={[styles.container, styles.horizontal]}>
+                <View>
+                    <ActivityIndicator size="large" color={"green"} />
+                </View>
+            </View>
+        )
     }
 
     // When the permission is not given
@@ -137,8 +139,8 @@ const Camera = ({ navigation }) => {
             ratio={ratio}
             ref={(ref) => { setCamera(ref) }}
             autoFocus='on'
-            flashMode={flashMode}
-        >
+            flashMode={flashMode}>
+                
             <View style={styles.bottomRow}>
                 <TouchableOpacity
                     style={styles.flipButton}
@@ -181,6 +183,14 @@ const SCREEN_HEIGHT = Dimensions.get('window').height;
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
+
+    bottomRow: {
+        backgroundColor: 'transparent',
+        marginBottom: 15,
+        flex: 1,
+        flexDirection: 'row',
+        position: 'relative'
+    },
     cameraScreen: {
         height: SCREEN_HEIGHT,
         width: SCREEN_WIDTH,
@@ -196,12 +206,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         zIndex: 1
     },
-    bottomRow: {
-        backgroundColor: 'transparent',
-        marginBottom: 15,
+    container: {
         flex: 1,
-        flexDirection: 'row',
-        position: 'relative'
+        justifyContent: "center",
+        backgroundColor: '#b5ff9a',
     },
     flipButton: {
         backgroundColor: 'transparent',
@@ -215,6 +223,11 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: 20,
         left: 10
+    },
+    horizontal: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center'
     }
 });
 

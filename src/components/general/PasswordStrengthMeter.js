@@ -1,6 +1,7 @@
+"use strict"
 
-import React from 'react';
 import zxcvbn from 'zxcvbn';
+import React, { useState } from 'react';
 import { StyleSheet, SafeAreaView, Text, TouchableOpacity, View, Alert, } from 'react-native';
 
 const PasswordStrengthMeter = ({ password }) => {
@@ -10,15 +11,15 @@ const PasswordStrengthMeter = ({ password }) => {
     const createPassLabel = () => {
         switch (testResult.score) {
             case 0:
-                return 'Very weak';
+                return 'Too weak'
             case 1:
-                return 'Weak';
+                return 'Weak'
             case 2:
-                return 'Fear';
+                return 'Fear'
             case 3:
-                return 'Good';
+                return 'Good'
             case 4:
-                return 'Strong';
+                return 'Strong'
             default:
                 return '';
         }
@@ -53,13 +54,10 @@ const PasswordStrengthMeter = ({ password }) => {
             <View style={{ height: 20 }}>
                 <View style={changePasswordColor()} />
                 <View style={{ backgroundColor: funcProgressColor() }}>
-                  <Text> {createPassLabel()}</Text> 
+                    <Text> {createPassLabel()}</Text>
                 </View>
             </View>
-
-
         </View>
-
     )
 }
 
