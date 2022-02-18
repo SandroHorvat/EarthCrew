@@ -1,12 +1,15 @@
 "use strict"
 
 import axios from 'axios';
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View, KeyboardAvoidingView } from 'react-native';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Pressable, ScrollView, StyleSheet, Text, TouchableOpacity, View, KeyboardAvoidingView } from 'react-native';
 import React, { useState } from 'react';
 import { Headline, Paragraph, TextInput, Button } from 'react-native-paper';
 import Toast from 'react-native-toast-message';
 import Tooltip from 'react-native-walkthrough-tooltip';
 import PasswordStrengthMeter from '../../../components/general/PasswordStrengthMeter';
+import { useTogglePasswordVisibility } from '../../../components/general/useTogglePasswordVisibility';
+
 
 // Request API.
 // Add your own code here to customize or restrict how the public can register new users.
@@ -16,6 +19,7 @@ const Register = ({ navigation }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [showTip, setTip] = useState(false);
+    const { passwordVisibility, rightIcon, handlePasswordVisibility } = useTogglePasswordVisibility();
 
     const validEmail = new RegExp('^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$');
 
@@ -103,6 +107,7 @@ const Register = ({ navigation }) => {
 
     return (
         <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>
+
             <ScrollView>
 
                 <Button onPress={() => { navigation.goBack() }} style={styles.backButton}><Text> Go Back</Text></Button>
@@ -114,33 +119,33 @@ const Register = ({ navigation }) => {
                     </Paragraph>
                 </View>
 
-                <View style={styles.divider} />
                 <TextInput
+                    style={{ marginBottom: 28 }}
                     value={email}
                     onChangeText={text => setEmail(text)}
                     label="*Email">
                 </TextInput>
 
-                <View style={styles.divider} />
                 <TextInput
+                    style={{ marginBottom: 28 }}
                     value={identifier}
                     onChangeText={text => setIdentifier(text)}
                     label="*Username">
                 </TextInput>
 
-                <View style={styles.divider} />
 
                 <TextInput
                     label="Password"
                     onChangeText={text => setPassword(text)}
-                    secureTextEntry
-                    passwordRules=''
-                />
-
+                    secureTextEntry={passwordVisibility}
+                    value={password} />
+                <Pressable onPress={handlePasswordVisibility}>
+                    <MaterialCommunityIcons name={rightIcon} size={22} color='#232323' />
+                </Pressable>
 
                 <PasswordStrengthMeter password={password} />
 
-                <Button onPress={() => { register() }}><Text>Register</Text></Button>
+                <Button style={styles.button} onPress={() => { register() }}><Text>Register</Text></Button>
 
                 <Toast />
 
@@ -195,7 +200,8 @@ const styles = StyleSheet.create({
         borderRadius: 4
     },
     container: {
-        flex: 1
+        flex: 1,
+        paddingHorizontal: 8,
     },
     divider: {
         height: 16,
@@ -216,6 +222,16 @@ const styles = StyleSheet.create({
         width: 85,
         height: 38,
         margin: 20
+    },
+    inputContainer: {
+        width: '100%',
+        height: 16,
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    inputField: {
+        padding: 14,
+        height: 16,
     },
     passmeter: {
         position: 'absolute',

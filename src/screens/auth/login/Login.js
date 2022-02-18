@@ -2,17 +2,28 @@ import { View, StyleSheet, Image } from 'react-native';
 import React, { useState } from 'react';
 import UserModel from '../../../app/models/UserModel';
 import { Headline, Paragraph, TextInput, Button, Snackbar, Portal } from 'react-native-paper';
-import { useNavigation } from '@react-navigation/core';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const Login = () => {
-    const [identifier, setIdentifier] = useState("test@gmail.com");
-    const [password, setPassword] = useState("123123");
+const Login = ({ navigation }) => {
+    const [identifier, setIdentifier] = useState("sandro22.11@hotmail.com");
+    const [password, setPassword] = useState("1qa1qa1qaILBMS21213!");
     const [visible, setVisible] = useState(false);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
-    const navigation = useNavigation();
+    const [user, setUser] = useState(null)
+
+    const storeData = async (user) => {
+        try {
+            await AsyncStorage.setItem('Login-Data', user)
+            console.log("Erfolgreich gesetzt im Login Screen")
+        } catch (e) {
+            // saving error
+            console.log(user)
+        }
+    }
 
     const validateInput = () => {
+
         let errors = false;
 
         if (!identifier || identifier.length === 0) {
@@ -27,9 +38,9 @@ const Login = () => {
     const authenticateUser = async () => {
         if (validateInput()) {
             setLoading(true);
-            
             const user = new UserModel(identifier, password);
-
+            setUser(user.identifier)
+            storeData(user)
             try {
                 if (await user.login()) {
                     navigation.navigate("App", { screen: 'Camera' })
@@ -58,44 +69,43 @@ const Login = () => {
                 </Paragraph>
             </View>
 
-                <View style={styles.divider} />
-                <TextInput
-                    value={identifier}
-                    onChangeText={text => setIdentifier(text)}
-                    label="*Username or email">
-                </TextInput>
-           
-                <View style={styles.divider} />
-                <TextInput
-                    value={password}
-                    onChangeText={text => setPassword(text)}
-                    label="*Password"
-                    secureTextEntry>
-                </TextInput>
-         
-                <View style={styles.divider} />
-                <Button
-                    loading={loading}
-                    disabled={loading}
-                    style={styles.btn}
-                    onPress={() => authenticateUser()}
-                    mode="contained">
-                    Login
-                </Button>
-                <Button
-                    loading={loading}
-                    disabled={loading}
-                    style={styles.btn}
-                    onPress={() => navigation.navigate("Register")}
-                    mode="contained">
-                    Register
-                </Button>
-                <View style={styles.divider} />
-                <Portal>
-                    <Snackbar visible={visible} onDismiss={() => setVisible(false)}>
-                        {error}
-                    </Snackbar>
-                </Portal>
+            <TextInput
+                style={{ marginVertical: 28 }}
+                value={identifier}
+                onChangeText={text => setIdentifier(text)}
+                label="*Username or email">
+            </TextInput>
+
+            <TextInput
+                style={{ marginBottom: 28 }}
+                value={password}
+                onChangeText={text => setPassword(text)}
+                label="*Password"
+                secureTextEntry>
+            </TextInput>
+
+            <Button
+                loading={loading}
+                disabled={loading}
+                style={styles.btn}
+                onPress={() => authenticateUser()}
+                mode="contained">
+                Login
+            </Button>
+            <Button
+                loading={loading}
+                disabled={loading}
+                style={styles.btn}
+                onPress={() => navigation.navigate("Register")}
+                mode="contained">
+                Register
+            </Button>
+            <View style={styles.divider} />
+            <Portal>
+                <Snackbar visible={visible} onDismiss={() => setVisible(false)}>
+                    {error}
+                </Snackbar>
+            </Portal>
         </View>
     );
 };

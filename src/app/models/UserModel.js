@@ -12,7 +12,6 @@ class UserModel {
 
   async login() {
     const result = await login(this);
-
     if (!result) {
       throw new Error('Unable to login user.');
     }

@@ -15,8 +15,7 @@ const AppMenu = () => {
     return (
         <Tab.Navigator
             screenOptions={{
-                tabBarActiveTintColor: 'green',
-                tabBarStyle: { backgroundColor: 'transparent' }
+                tabBarActiveTintColor: 'green'
             }}>
             <Tab.Screen
                 name='Upload'
