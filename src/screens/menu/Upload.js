@@ -10,16 +10,19 @@ import Tooltip from 'react-native-walkthrough-tooltip';
 import * as Animatable from 'react-native-animatable';
 import DropDownPicker from 'react-native-dropdown-picker';
 
+import { switchState, valueItemsState } from '../../../atoms';
+import { useRecoilState } from 'recoil';
+
 const Upload = ({ route, navigation: { setParams } }) => {
 
     // When photo is present
     if (route.params?.photo) {
         const { photo, location, isDisabled, sendStatus, text } = route.params;
-        const [pickedUp, setPickedUp] = useState(false);
+        const [pickedUp, setPickedUp] = useRecoilState(switchState);
         const [modalOpen, setModalOpen] = useState(false);
         const [showTip, setTip] = useState(false);
         const [open, setOpen] = useState(false);
-        const [value, setValue] = useState(null);
+        const [value, setValue] = useRecoilState(valueItemsState);
         const [items, setItems] = useState([
             { label: 'Aluminium', value: 'Aluminium' },
             { label: 'Cigarettes', value: 'Cigarettes' },
@@ -68,7 +71,7 @@ const Upload = ({ route, navigation: { setParams } }) => {
 
         // Switcher for picked up or not picked up
         const toggleSwitch = () => {
-            setPickedUp(previousState => !previousState);
+            setPickedUp(!pickedUp);
         }
 
         // Show information when litter was successfully sended

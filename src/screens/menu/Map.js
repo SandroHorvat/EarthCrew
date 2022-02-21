@@ -9,7 +9,7 @@ import axios from "axios";
 const Map = () => {
     const [location, setLocation] = useState(null);
     const [litters, setLitters] = useState([]);
-    const mapStyle = require('../../assets/MapStyle.json');
+    const mapStyle = require('../../styles/MapStyle.json');
 
     // Load actual position of user
     useEffect(() => {

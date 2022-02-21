@@ -3,26 +3,11 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Button, Image, StyleSheet, TouchableOpacity, Text, View } from 'react-native';
 import React, { useState, useEffect } from 'react';
+import { useRecoilState } from 'recoil'
+import { userIdState } from '../../../atoms';
 
 const Settings = ({ navigation }) => {
-    const [user, setUser] = useState(null)
-
-    useEffect(() => {
-        getData()
-    }, [])
-
-    const getData = async () => {
-        try {
-            const value = await AsyncStorage.getItem('Login-Data')
-            setUser(value)
-
-            if (value !== null) {
-                // value previously stored
-            }
-        } catch (e) {
-            // error reading value
-        }
-    }
+    const [userID, setUserID] = useRecoilState(userIdState)
 
     return (
         <View style={styles.container}>
@@ -35,7 +20,7 @@ const Settings = ({ navigation }) => {
                     <Text style={styles.description}>Lorem ipsum dolor sit amet, saepe sapientem eu nam. Qui ne assum electram expetendis, omittam deseruisse consequuntur ius an,</Text>
 
                     <TouchableOpacity style={styles.buttonContainer}>
-                        <Text>Logged in with this account: {user} </Text>
+                        <Text>Logged in with this account: {userID} </Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.buttonContainer}>
                         <Button title='Logout' onPress={async () => {

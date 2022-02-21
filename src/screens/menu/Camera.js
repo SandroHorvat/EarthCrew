@@ -4,6 +4,9 @@ import { Camera as ExpoCamera } from 'expo-camera';
 import * as Location from 'expo-location';
 import { Ionicons } from '@expo/vector-icons';
 
+import { switchState, valueItemsState } from '../../../atoms';
+import { useResetRecoilState } from 'recoil';
+
 const Camera = ({ navigation }) => {
 
     const [type, setType] = useState(ExpoCamera.Constants.Type.back);
@@ -20,6 +23,7 @@ const Camera = ({ navigation }) => {
     const screenRatio = height / width
     const [isRatioSet, setIsRatioSet] = useState(false)
     const { height, width } = Dimensions.get('window')
+    // not used
     const [imagePadding, setImagePadding] = useState(0)
 
     // Ratio preparing Android
@@ -106,6 +110,13 @@ const Camera = ({ navigation }) => {
         }
     }
 
+    // Reset the state of the switcher in upload to false
+    const resetList = useResetRecoilState(switchState);
+
+    // Reset the state of the valueItems in upload to null
+    const resetValueItems = useResetRecoilState(valueItemsState);
+
+
     // Checking the flashMode
     const flashSwitchHandler = () => {
         if (flashMode === 'off') {
@@ -161,7 +172,7 @@ const Camera = ({ navigation }) => {
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.cameraButton}
-                    onPress={capture}>
+                    onPress={() => { capture(); resetList(); resetValueItems(); }}>
                     <Ionicons
                         color="white"
                         name="radio-button-on-outline"

@@ -2,7 +2,8 @@ import { View, StyleSheet, Image } from 'react-native';
 import React, { useState } from 'react';
 import UserModel from '../../../app/models/UserModel';
 import { Headline, Paragraph, TextInput, Button, Snackbar, Portal } from 'react-native-paper';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useRecoilState } from 'recoil';
+import { userIdState } from '../../../../atoms';
 
 const Login = ({ navigation }) => {
     const [identifier, setIdentifier] = useState("sandro22.11@hotmail.com");
@@ -10,17 +11,7 @@ const Login = ({ navigation }) => {
     const [visible, setVisible] = useState(false);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
-    const [user, setUser] = useState(null)
-
-    const storeData = async (user) => {
-        try {
-            await AsyncStorage.setItem('Login-Data', user)
-            console.log("Erfolgreich gesetzt im Login Screen")
-        } catch (e) {
-            // saving error
-            console.log(user)
-        }
-    }
+    const [userID, setUserID] = useRecoilState(userIdState);
 
     const validateInput = () => {
 
@@ -39,8 +30,8 @@ const Login = ({ navigation }) => {
         if (validateInput()) {
             setLoading(true);
             const user = new UserModel(identifier, password);
-            setUser(user.identifier)
-            storeData(user)
+            setUserID(user.identifier)
+
             try {
                 if (await user.login()) {
                     navigation.navigate("App", { screen: 'Camera' })
@@ -65,7 +56,7 @@ const Login = ({ navigation }) => {
                 <Paragraph style={styles.appDesc}>
                     <Image
                         style={styles.logo}
-                        source={require('./Logo.jpg')} />
+                        source={require('../../../assets/pictures/Logo.jpg')} />
                 </Paragraph>
             </View>
 
@@ -100,6 +91,7 @@ const Login = ({ navigation }) => {
                 mode="contained">
                 Register
             </Button>
+
             <View style={styles.divider} />
             <Portal>
                 <Snackbar visible={visible} onDismiss={() => setVisible(false)}>
