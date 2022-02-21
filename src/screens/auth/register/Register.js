@@ -202,6 +202,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingHorizontal: 8,
+        backgroundColor: '#b5ff9a'
     },
     divider: {
         height: 16,

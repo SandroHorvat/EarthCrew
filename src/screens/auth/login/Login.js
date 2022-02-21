@@ -1,9 +1,9 @@
 import { View, StyleSheet, Image } from 'react-native';
 import React, { useState } from 'react';
 import UserModel from '../../../app/models/UserModel';
-import { Headline, Paragraph, TextInput, Button, Snackbar, Portal } from 'react-native-paper';
 import { useRecoilState } from 'recoil';
 import { userIdState } from '../../../../atoms';
+import { Headline, Paragraph, TextInput, Button, Snackbar, Portal } from 'react-native-paper';
 
 const Login = ({ navigation }) => {
     const [identifier, setIdentifier] = useState("sandro22.11@hotmail.com");
@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
         paddingRight: 16,
         alignContent: 'center',
         justifyContent: 'center',
-        backgroundColor: '#ffffff',
+        backgroundColor: '#b5ff9a',
     },
     divider: {
         height: 16,
