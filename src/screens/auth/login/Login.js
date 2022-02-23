@@ -3,7 +3,8 @@ import React, { useState } from 'react';
 import UserModel from '../../../app/models/UserModel';
 import { useRecoilState } from 'recoil';
 import { userIdState } from '../../../../atoms';
-import { Headline, Paragraph, TextInput, Button, Snackbar, Portal } from 'react-native-paper';
+import { Button, Headline, Paragraph, TextInput } from 'react-native-paper';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Login = ({ navigation }) => {
     const [identifier, setIdentifier] = useState("sandro22.11@hotmail.com");
@@ -12,6 +13,7 @@ const Login = ({ navigation }) => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
     const [userID, setUserID] = useRecoilState(userIdState);
+    const icon = !visible ? 'eye-slash' : 'eye';
 
     const validateInput = () => {
 
@@ -50,10 +52,11 @@ const Login = ({ navigation }) => {
     };
 
     return (
-        <View style={styles.base}>
+        <View style={styles.container}>
+
             <View style={styles.header}>
-                <Headline style={styles.appTitle}>Enter Earthcrew </Headline>
-                <Paragraph style={styles.appDesc}>
+                <Headline style={styles.appTitle}>Enter</Headline>
+                <Paragraph>
                     <Image
                         style={styles.logo}
                         source={require('../../../assets/pictures/Logo.jpg')} />
@@ -61,19 +64,31 @@ const Login = ({ navigation }) => {
             </View>
 
             <TextInput
-                style={{ marginVertical: 28 }}
+                style={{ height: 60, marginVertical: 28, backgroundColor: '#e3e3e3' }}
                 value={identifier}
                 onChangeText={text => setIdentifier(text)}
-                label="*Username or email">
+                label="*Username or email"
+                underlineColor="transparent" >
             </TextInput>
 
-            <TextInput
-                style={{ marginBottom: 28 }}
-                value={password}
-                onChangeText={text => setPassword(text)}
-                label="*Password"
-                secureTextEntry>
-            </TextInput>
+            <View style={styles.containerPassword}>
+                <TextInput
+                    style={{ height: 60, flex: 1, alignSelf: 'stretch', backgroundColor: '#e3e3e3' }}
+                    onChangeText={text => setPassword(text)}
+                    value={password}
+                    placeholder={"Hallo"}
+                    secureTextEntry={!visible}
+                    label="*Password"
+                    underlineColor="transparent"
+                />
+                <Icon
+                    name={icon}
+                    color={'#9e9e9e'}
+                    onPress={() => setVisible(!visible)}
+                    size={20}
+                    style={[styles.icons, { height: 70, width: 30 }]}
+                />
+            </View>
 
             <Button
                 loading={loading}
@@ -83,6 +98,7 @@ const Login = ({ navigation }) => {
                 mode="contained">
                 Login
             </Button>
+            
             <Button
                 loading={loading}
                 disabled={loading}
@@ -92,18 +108,18 @@ const Login = ({ navigation }) => {
                 Register
             </Button>
 
-            <View style={styles.divider} />
-            <Portal>
-                <Snackbar visible={visible} onDismiss={() => setVisible(false)}>
-                    {error}
-                </Snackbar>
-            </Portal>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
-    base: {
+    appTitle: {
+        textAlign: 'center',
+        fontSize: 30,
+        lineHeight: 35,
+        fontWeight: '700',
+    },
+    container: {
         flex: 1,
         paddingLeft: 16,
         paddingRight: 16,
@@ -111,29 +127,34 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: '#b5ff9a',
     },
+    btn: {
+        height: 50,
+        paddingTop: 6,
+        margin: 5
+    },
+    containerPassword: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        alignSelf: 'stretch',
+        borderColor: '#e3e3e3',
+        marginBottom: 30
+    },
     divider: {
         height: 16,
     },
     headline: {
         fontSize: 30,
     },
-    appDesc: {
-        textAlign: 'center',
-    },
     header: {
         justifyContent: 'center',
         alignSelf: 'center',
     },
-    appTitle: {
-        textAlign: 'center',
-        fontSize: 30,
-        lineHeight: 35,
-        fontWeight: '700',
-    },
-    btn: {
-        height: 50,
-        paddingTop: 6,
-        margin: 5
+    icons: {
+        backgroundColor: '#e3e3e3',
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignContent: 'center',
     },
     logo: {
         justifyContent: 'center',

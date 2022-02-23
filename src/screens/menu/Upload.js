@@ -156,6 +156,7 @@ const Upload = ({ route, navigation: { setParams } }) => {
                                     text: text
                                 })}
                                 placeholder="Type some descriptions in"
+                                placeholderTextColor={"green"}
                                 keyboardType='default' />
                         </SafeAreaView>
 
@@ -203,7 +204,7 @@ const Upload = ({ route, navigation: { setParams } }) => {
                         <SafeAreaView style={styles.toolTipContainer}>
                             <Tooltip
                                 isVisible={showTip}
-                                content={<Text>At the top you can write the type of the litter in. Then please give the litter a status and a category. Did you picked it up or not ?</Text>}
+                                content={<Text>At the top you can put some optional descriptions in. Then please give the litter a status and a category. At least please say us did you picked the litter up or not ?</Text>}
                                 placement="top"
                                 onClose={() => setTip(false)}
                                 // below is for the status bar of react navigation bar
