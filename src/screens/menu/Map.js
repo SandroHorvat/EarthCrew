@@ -1,22 +1,28 @@
 "use strict";
 
-import React, { useEffect, useState } from "react";
-import MapView, { Callout, Marker } from "react-native-maps";
-import { Alert, ActivityIndicator, Button, Image, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import React, { useEffect, useState, useRef } from "react";
+import { Callout, Marker } from "react-native-maps";
+import { Alert, ActivityIndicator, Image, SafeAreaView, StyleSheet, Text, Platform, View } from "react-native";
 import * as Location from "expo-location";
 import axios from "axios";
+import { WebView } from 'react-native-webview';
+import MapView from "react-native-map-clustering";
 
 const Map = () => {
     const [location, setLocation] = useState(null);
+    const [errorMsg, setErrorMsg] = useState(null);
     const [litters, setLitters] = useState([]);
-    const mapStyle = require('../../styles/MapStyle.json');
+    const mapRef = useRef(null);
 
-    // Load actual position of user
+    const mapStyle = require('../../styles/MapStyle.json');
+    const isAndroid = Platform.OS === 'android'
+
     useEffect(() => {
         (async () => {
             let { status } = await Location.requestForegroundPermissionsAsync();
-            if (status !== "granted") {
-                setErrorMsg("Permission to access location was denied");
+            if (status !== 'granted') {
+                setErrorMsg('Permission to access location was denied');
+                Alert.alert(errorMsg)
                 return;
             }
             let location = await Location.getCurrentPositionAsync({});
@@ -24,8 +30,8 @@ const Map = () => {
         })();
     }, []);
 
+    // Load litters and set state
     useEffect(() => {
-        // Load litters and set state
         let baseUrl = "http://178.18.252.126:1337"
         axios({
             method: 'get',
@@ -36,49 +42,23 @@ const Map = () => {
         });
     }, [])
 
-    /*
-    const deleteMarks = () => {
-        showConfirmDialog();
-    };
- 
-    const showConfirmDialog = () => {
-        Alert.alert(
-            "Delete",
-            "Are you sure you want to delete all litters ?",
-            [
-                {
-                    text: "Cancel",
-                    onPress: () => console.log("Cancel Pressed"),
-                    style: "cancel"
-                },
-                {
-                    text: "OK",
-                    onPress: () => setLitters([])
-                }
-            ]
-        );
-    };
-
-  <Image source={{ uri: "http://178.18.252.126:1337" + JSON.stringify(litters[0].pictureOfLitter[0].formats.large.url).slice(1, -1) }} style={{ width: 100, height: 100 }} />
-    */
-
     const mapMarkers = () => {
-        return litters.map((litter, key) => (
-            <Marker
-                key={key}
-                coordinate={{
-                    latitude: litter.latitude,
-                    longitude: litter.longitude
-                }}
-                pinColor={"green"}
-            >
-                <Callout>
-                    <Text>Description:  {litter.type}</Text>
-                    <Text>Category:  {litter.category}</Text>
-                    <Image source={{ uri: "http://178.18.252.126:1337" + litter.pictureOfLitter[0].formats.large.url }} style={{ width: 100, height: 100 }} />
-                </Callout>
-            </Marker >
-        ));
+        return litters.map((litter, key) => {
+            var imageUrl = "http://178.18.252.126:1337" + litter.pictureOfLitter[0].formats.large.url;
+
+            return (
+                <Marker
+                    key={key}
+                    coordinate={{ latitude: litter.latitude, longitude: litter.longitude }}
+                    pinColor={"green"}>
+                    <Callout style={styles.callout}>
+                        <Text>Description:  {litter.type}</Text>
+                        <Text>Category:  {litter.category}</Text>
+                        {isAndroid ? <WebView style={{ width: 100, height: 100 }} source={{ uri: imageUrl }} /> : <Image style={styles.image} source={{ uri: imageUrl }} />}
+                    </Callout>
+                </Marker >
+            )
+        });
     };
 
     if (location == null || litters == null) {
@@ -91,9 +71,22 @@ const Map = () => {
         );
     }
 
+    // Initial region must be defined
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <MapView
+                ref={mapRef}
+                initialRegion={{
+                    latitude: location.coords.latitude,
+                    longitude: location.coords.longitude,
+                    latitudeDelta: 0.0922,
+                    longitudeDelta: 0.0421
+                }}
+                animationEnabled={true}
+                animationEnabled={true}
+                clusterColor={'#19cd21'}
+                spiderLineColor={'#19cd21'}
+                tracksViewChanges={true}
                 style={styles.map}
                 customMapStyle={mapStyle}
                 showsUserLocation={true}
@@ -107,27 +100,37 @@ const Map = () => {
                 {mapMarkers()}
 
             </MapView>
-
-        </SafeAreaView>
+        </SafeAreaView >
     );
-};
 
+}
 const styles = StyleSheet.create({
     box: {
         width: 300,
         height: 300,
-        backgroundColor: "#b5ff9a",
+        backgroundColor: "#fff",
         marginBottom: 30,
+    },
+    callout: {
+        borderRadius: 10
     },
     container: {
         flex: 1,
         justifyContent: "center",
-        backgroundColor: '#b5ff9a',
+        backgroundColor: '#fff',
     },
     horizontal: {
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "center",
+    },
+    image: {
+        alignItems: "center",
+        justifyContent: "center",
+        width: 140,
+        height: 140,
+        marginTop: 10,
+        borderRadius: 14
     },
     map: {
         ...StyleSheet.absoluteFillObject,

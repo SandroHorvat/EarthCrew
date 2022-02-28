@@ -1,7 +1,7 @@
 "use strict"
 
 import React, { useState } from 'react';
-import { Alert, StyleSheet, Image, Text, TouchableOpacity, TextInput, SafeAreaView, Switch, Dimensions, Modal } from 'react-native';
+import { Alert, StyleSheet, Image, Text, TouchableOpacity, TextInput, SafeAreaView, ScrollView, Switch, StatusBar, Dimensions, Modal } from 'react-native';
 import { Card } from 'react-native-elements'
 import { AntDesign, Ionicons } from '@expo/vector-icons';
 import axios from 'axios';
@@ -131,6 +131,7 @@ const Upload = ({ route, navigation: { setParams } }) => {
 
         // onRequestClose for Android User
         return (
+
             <SafeAreaView style={styles.container}>
 
                 <TouchableOpacity onPress={() => setModalOpen(true)}>
@@ -138,106 +139,101 @@ const Upload = ({ route, navigation: { setParams } }) => {
                 </TouchableOpacity>
 
                 <Modal visible={modalOpen} animationType='slide' onRequestClose={() => setModalOpen(false)}>
+                    <ScrollView style={styles.modalContainer} nestedScrollEnabled={true}>
+                        <SafeAreaView>
+                            <SafeAreaView style={styles.modalCloseContainer}>
+                                <Ionicons
+                                    name='close'
+                                    size={25}
+                                    onPress={() => setModalOpen(false)} />
+                            </SafeAreaView>
 
-                    <SafeAreaView style={styles.modalContainer}>
+                            <SafeAreaView style={styles.inputContainer}>
+                                <TextInput
+                                    style={styles.input}
+                                    value={text}
+                                    onChangeText={(text) => setParams({ text: text })}
+                                    placeholder="Type some descriptions in"
+                                    placeholderTextColor={"green"}
+                                    keyboardType='default' />
+                            </SafeAreaView>
 
-                        <SafeAreaView style={styles.modalCloseContainer}>
-                            <Ionicons
-                                name='close'
-                                size={25}
-                                onPress={() => setModalOpen(false)} />
-                        </SafeAreaView>
+                            <SafeAreaView style={styles.cardContainer}>
+                                <Card>
+                                    <Text >{pickedUp ? "Picked up" : "Not picked up"}  </Text>
+                                </Card>
+                                <Card>
+                                    {litterAlreadySent()}
+                                </Card>
+                            </SafeAreaView>
 
-                        <SafeAreaView style={styles.inputContainer}>
-                            <TextInput
-                                style={styles.input}
-                                value={text}
-                                onChangeText={(text) => setParams({
-                                    text: text
-                                })}
-                                placeholder="Type some descriptions in"
-                                placeholderTextColor={"green"}
-                                keyboardType='default' />
-                        </SafeAreaView>
+                            <SafeAreaView style={styles.modalPhotoContainer}>
+                                <Image style={styles.modalPhoto} source={{ uri: photo.uri }} />
+                            </SafeAreaView>
 
-                        <SafeAreaView style={styles.cardContainer}>
-                            <Card>
-                                <Text >{pickedUp ? "Picked up" : "Not picked up"}  </Text>
-                            </Card>
+                            <SafeAreaView style={styles.switchContainer}>
+                                <Switch
+                                    style={styles.switch}
+                                    trackColor={{ false: "#ff0000", true: "#00ff00" }}
+                                    thumbColor={pickedUp ? "#006400" : "#800000"}
+                                    ios_backgroundColor="#ff0000"
+                                    onValueChange={toggleSwitch}
+                                    value={pickedUp} />
+                            </SafeAreaView>
 
-                            <Card>
-                                {litterAlreadySent()}
-                            </Card>
-                        </SafeAreaView>
+                            <SafeAreaView style={styles.dropdownContainer}>
+                                <DropDownPicker
+                                    style={styles.dropdown}
+                                    containerStyle={{ width: 140 }}
+                                    placeholder="Select an item"
+                                    open={open}
+                                    value={value}
+                                    items={items}
+                                    listMode="SCROLLVIEW"
+                                    dropDownDirection='TOP'
+                                    setOpen={setOpen}
+                                    setValue={setValue}
+                                    setItems={setItems} />
+                            </SafeAreaView>
 
+                            <Toast />
 
-                        <SafeAreaView style={styles.modalPhotoContainer}>
-                            <Image style={styles.modalPhoto} source={{ uri: photo.uri }} />
-                        </SafeAreaView>
+                            <SafeAreaView style={styles.toolTipContainer}>
+                                <Tooltip
+                                    isVisible={showTip}
+                                    content={<Text>At the top you can put some optional descriptions in. Then please give the litter a status and a category. At least please say us did you picked the litter up or not ?</Text>}
+                                    placement="top"
+                                    onClose={() => setTip(false)}
+                                    // below is for the status bar of react navigation bar
+                                    topAdjustment={Platform.OS === 'android' ? -StatusBar.currentHeight : 0}>
+                                    <TouchableOpacity
+                                        style={[styles.toolTipBox, styles.button]}
+                                        onPress={() => setTip(true)}>
+                                        <Text>Information</Text>
+                                    </TouchableOpacity>
+                                </Tooltip>
+                            </SafeAreaView>
 
-                        <SafeAreaView style={styles.switchContainer}>
-                            <Switch
-                                style={styles.switch}
-                                trackColor={{ false: "#ff0000", true: "#00ff00" }}
-                                thumbColor={pickedUp ? "#006400" : "#800000"}
-                                ios_backgroundColor="#ff0000"
-                                onValueChange={toggleSwitch}
-                                value={pickedUp} />
-                        </SafeAreaView>
-
-                        <SafeAreaView style={styles.dropdownContainer}>
-                            <DropDownPicker
-                                style={styles.dropdown}
-                                containerStyle={{ width: 140 }}
-                                placeholder="Select an item"
-                                open={open}
-                                value={value}
-                                items={items}
-                                dropDownDirection='BOTTOM'
-                                setOpen={setOpen}
-                                setValue={setValue}
-                                setItems={setItems} />
-                        </SafeAreaView>
-
-                        <Toast />
-
-                        <SafeAreaView style={styles.toolTipContainer}>
-                            <Tooltip
-                                isVisible={showTip}
-                                content={<Text>At the top you can put some optional descriptions in. Then please give the litter a status and a category. At least please say us did you picked the litter up or not ?</Text>}
-                                placement="top"
-                                onClose={() => setTip(false)}
-                                // below is for the status bar of react navigation bar
-                                topAdjustment={Platform.OS === 'android' ? -StatusBar.currentHeight : 0}>
+                            <SafeAreaView style={styles.sendButtonContainer}>
                                 <TouchableOpacity
-                                    style={[styles.toolTipBox, styles.button]}
-                                    onPress={() => setTip(true)}>
-                                    <Text>Information</Text>
+                                    activeOpacity={10}
+                                    disabled={isDisabled}
+                                    onPress={() => confirmLitterSendDialog()} >
+                                    < Ionicons
+                                        color="green"
+                                        name="send-outline"
+                                        size={SCREEN_HEIGHT * 0.07} />
                                 </TouchableOpacity>
-                            </Tooltip>
+                            </SafeAreaView>
                         </SafeAreaView>
-
-                        <SafeAreaView style={styles.sendButtonContainer}>
-                            <TouchableOpacity
-                                activeOpacity={10}
-                                disabled={isDisabled}
-                                onPress={() => confirmLitterSendDialog()} >
-                                < Ionicons
-                                    color="green"
-                                    name="send-outline"
-                                    size={SCREEN_HEIGHT * 0.07} />
-                            </TouchableOpacity>
-                        </SafeAreaView>
-
-                    </SafeAreaView>
-
+                    </ScrollView>
                 </Modal >
             </SafeAreaView >
         );
     } else {
         return <SafeAreaView style={styles.container}>
-            <Text style={{ margin: 20, fontSize: 30 }}>First take a photo</Text>
-            <AntDesign name="camerao" size={100} color="black" />
+            <Text style={{ margin: 20, fontSize: 30, color: '#19cd21' }}>First take a photo</Text>
+            <AntDesign name="camerao" size={100} color="#19cd21" />
         </SafeAreaView>
     }
 }
@@ -249,11 +245,17 @@ const styles = StyleSheet.create({
         padding: 10,
         borderRadius: 4
     },
+    cardContainer: {
+        width: "100%",
+        flexDirection: "row",
+        justifyContent: 'space-around',
+        alignItems: "center"
+    },
     container: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#b5ff9a',
+        backgroundColor: '#fff',
     },
     dropdownContainer: {
         alignSelf: 'center',
@@ -269,12 +271,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    cardContainer: {
-        width: "100%",
-        flexDirection: "row",
-        justifyContent: 'space-around',
-        alignItems: "center"
-    },
     input: {
         height: 40,
         width: 200,
@@ -286,7 +282,7 @@ const styles = StyleSheet.create({
     },
     modalContainer: {
         flex: 1,
-        backgroundColor: '#b5ff9a',
+        backgroundColor: '#fff',
     },
     modalCloseContainer: {
         flexDirection: "row",

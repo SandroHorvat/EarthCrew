@@ -13,7 +13,7 @@
         "elementType": "labels",
         "stylers": [
             {
-                "visibility": "off"
+                "visibility": "on"
             },
             {
                 "saturation": "-100"
@@ -34,7 +34,7 @@
                 "lightness": 40
             },
             {
-                "visibility": "off"
+                "visibility": "on"
             }
         ]
     },
@@ -58,7 +58,7 @@
         "elementType": "labels.icon",
         "stylers": [
             {
-                "visibility": "off"
+                "visibility": "on"
             }
         ]
     },

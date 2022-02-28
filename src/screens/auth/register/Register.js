@@ -1,7 +1,7 @@
 "use strict"
 
 import axios from 'axios';
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View, KeyboardAvoidingView, SafeAreaView } from 'react-native';
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View, KeyboardAvoidingView, SafeAreaView, StatusBar } from 'react-native';
 import React, { useState } from 'react';
 import { Headline, Paragraph, TextInput, Button } from 'react-native-paper';
 import Toast from 'react-native-toast-message';
@@ -209,7 +209,7 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingLeft: 16,
         paddingRight: 16,
-        backgroundColor: '#b5ff9a'
+        backgroundColor: '#fff'
     },
     containerPassword: {
         display: 'flex',

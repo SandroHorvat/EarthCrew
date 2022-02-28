@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, Button, Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Camera as ExpoCamera } from 'expo-camera';
 import * as Location from 'expo-location';
 import { Ionicons } from '@expo/vector-icons';
 
 import { switchState, valueItemsState } from '../../../atoms';
 import { useResetRecoilState } from 'recoil';
+import { withNavigationFocus } from 'react-navigation'
 
 const Camera = ({ navigation }) => {
 
@@ -150,9 +151,9 @@ const Camera = ({ navigation }) => {
         <ExpoCamera
             type={type}
             onCameraReady={setCameraReady}
-            ratio={ratio}
+            ratio={'4:3'}
             style={styles.cameraScreen}
-            ref={ref => { setCamera(ref) }}
+            ref={ref => setCamera(ref)}
             autoFocus='on'
             flashMode={flashMode}>
             <View style={styles.bottomRow}>
@@ -222,7 +223,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: "center",
-        backgroundColor: '#b5ff9a',
+        backgroundColor: '#fff',
     },
     flipButton: {
         backgroundColor: 'transparent',

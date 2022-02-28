@@ -55,7 +55,7 @@ const Login = ({ navigation }) => {
         <View style={styles.container}>
 
             <View style={styles.header}>
-                <Headline style={styles.appTitle}>Enter</Headline>
+                <Headline style={styles.appTitle}>Enter the EarthCrew App</Headline>
                 <Paragraph>
                     <Image
                         style={styles.logo}
@@ -98,7 +98,7 @@ const Login = ({ navigation }) => {
                 mode="contained">
                 Login
             </Button>
-            
+
             <Button
                 loading={loading}
                 disabled={loading}
@@ -125,7 +125,8 @@ const styles = StyleSheet.create({
         paddingRight: 16,
         alignContent: 'center',
         justifyContent: 'center',
-        backgroundColor: '#b5ff9a',
+        backgroundColor: '#fff'
+
     },
     btn: {
         height: 50,
@@ -149,6 +150,9 @@ const styles = StyleSheet.create({
     header: {
         justifyContent: 'center',
         alignSelf: 'center',
+        alignItems: 'center',
+        alignContent: 'center',
+        marginBottom: 20
     },
     icons: {
         backgroundColor: '#e3e3e3',
