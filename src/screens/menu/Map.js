@@ -12,11 +12,13 @@ const Map = () => {
     const [location, setLocation] = useState(null);
     const [errorMsg, setErrorMsg] = useState(null);
     const [litters, setLitters] = useState([]);
-    const mapRef = useRef(null);
 
+    const mapRef = useRef(null);
     const mapStyle = require('../../styles/MapStyle.json');
     const isAndroid = Platform.OS === 'android'
 
+
+    // Load the location of the user and set state
     useEffect(() => {
         (async () => {
             let { status } = await Location.requestForegroundPermissionsAsync();
@@ -30,37 +32,65 @@ const Map = () => {
         })();
     }, []);
 
-    // Load litters and set state
+    // Load litters set state and load new litters every 5 seconds
     useEffect(() => {
-        let baseUrl = "http://178.18.252.126:1337"
-        axios({
-            method: 'get',
-            url: `${baseUrl}/litters`,
-        }).then((response) => {
-            const litters = response.data;
-            setLitters(litters);
-        });
+        let interval
+        const fetchData = async () => {
+            try {
+                const baseUrl = "http://178.18.252.126:1337"
+                axios({
+                    method: 'get',
+                    url: `${baseUrl}/litters`,
+                }).then((response) => {
+                    const litters = response.data;
+                    setLitters(litters);
+                });
+            } catch (error) {
+                console.log("error", error)
+            }
+        }
+        fetchData()
+
+        interval = setInterval(() => {
+            fetchData()
+        }, 2 * 1000)
+        return () => {
+            clearInterval(interval)
+        }
     }, [])
 
+
+    // Map markers and show on map
     const mapMarkers = () => {
         return litters.map((litter, key) => {
             var imageUrl = "http://178.18.252.126:1337" + litter.pictureOfLitter[0].formats.large.url;
-
             return (
                 <Marker
                     key={key}
-                    coordinate={{ latitude: litter.latitude, longitude: litter.longitude }}
-                    pinColor={"green"}>
-                    <Callout style={styles.callout}>
-                        <Text>Description:  {litter.type}</Text>
-                        <Text>Category:  {litter.category}</Text>
-                        {isAndroid ? <WebView style={{ width: 100, height: 100 }} source={{ uri: imageUrl }} /> : <Image style={styles.image} source={{ uri: imageUrl }} />}
+                    coordinate={{ latitude: litter.latitude, longitude: litter.longitude }}>
+                    {(String(litter.pickedUp)) === "true" ? <Image
+                        source={require('../../assets/icons/icons8-recycle-bin-64_green.png')}
+                        style={{ width: 40, height: 40 }}
+                        resizeMode="contain"
+                    /> : <Image
+                        source={require('../../assets/icons/icons8-recycle-bin-64_red.png')}
+                        style={{ width: 40, height: 40 }}
+                        resizeMode="contain"
+                    />}
+                    <Callout style={styles.callout} tooltip={true}>
+                        <View style={styles.bubble}>
+                            {isAndroid ? <WebView style={{ width: 100, height: 100 }} source={{ uri: imageUrl }} /> : <Image style={styles.image} source={{ uri: imageUrl }} />}
+                            <Text style={styles.markerCalloutText}>Description: {litter.type}{"\n"}</Text>
+                            <Text style={styles.markerCalloutText}>Category:  {litter.category}{"\n"}</Text>
+                            <Text style={styles.markerCalloutText}>Picked up: {(String(litter.pickedUp)) === "true" ? " 👍" : " 👎"}</Text>
+                        </View>
                     </Callout>
                 </Marker >
             )
         });
     };
 
+    // Show the activity indicator until location and litters aren´t loaded
     if (location == null || litters == null) {
         return (
             <View style={[styles.container, styles.horizontal]}>
@@ -83,9 +113,7 @@ const Map = () => {
                     longitudeDelta: 0.0421
                 }}
                 animationEnabled={true}
-                animationEnabled={true}
                 clusterColor={'#19cd21'}
-                spiderLineColor={'#19cd21'}
                 tracksViewChanges={true}
                 style={styles.map}
                 customMapStyle={mapStyle}
@@ -100,41 +128,44 @@ const Map = () => {
                 {mapMarkers()}
 
             </MapView>
+
         </SafeAreaView >
     );
 
 }
 const styles = StyleSheet.create({
-    box: {
-        width: 300,
-        height: 300,
-        backgroundColor: "#fff",
-        marginBottom: 30,
-    },
+
     callout: {
-        borderRadius: 10
+        flexDirection: "row",
+        justifyContent: "center",
+        borderRadius: 8,
+        backgroundColor: '#b5ff9a',
+        width: 250,
+        height: 260
     },
     container: {
         flex: 1,
         justifyContent: "center",
-        backgroundColor: '#fff',
+        backgroundColor: '#ffffff'
     },
     horizontal: {
         flexDirection: "row",
         alignItems: "center",
-        justifyContent: "center",
+        justifyContent: "center"
     },
     image: {
-        alignItems: "center",
-        justifyContent: "center",
+        alignSelf: 'center',
         width: 140,
         height: 140,
-        marginTop: 10,
-        borderRadius: 14
+        margin: 20,
+        borderRadius: 8
     },
     map: {
-        ...StyleSheet.absoluteFillObject,
+        ...StyleSheet.absoluteFillObject
     },
+    markerCalloutText: {
+        fontSize: 12
+    }
 });
 
 export default Map;

@@ -15,7 +15,7 @@ const AppMenu = () => {
     return (
         <Tab.Navigator
             screenOptions={{
-                tabBarActiveTintColor: '#fff',
+                tabBarActiveTintColor: '#ffffff',
                 tabBarStyle: {
                     backgroundColor: '#19cd21'
                 }
@@ -24,10 +24,7 @@ const AppMenu = () => {
                 name='Upload'
                 component={Upload}
                 options={{
-                    headerTintColor: '#fff',
-                    headerStyle: {
-                        backgroundColor: '#19cd21',
-                    },
+                    headerShown: false,
                     tabBarIcon: ({ size, color }) => {
                         return (
                             <Ionicons name='cloud-upload-outline' size={size} color={color} />
@@ -38,10 +35,7 @@ const AppMenu = () => {
                 name='Camera'
                 component={Camera}
                 options={{
-                    headerTintColor: '#fff',
-                    headerStyle: {
-                        backgroundColor: '#19cd21',
-                    },
+                    headerShown: false,
                     tabBarIcon: ({ size, color }) => {
                         return (
                             <Ionicons
@@ -51,30 +45,24 @@ const AppMenu = () => {
                         );
                     }
                 }} />
-            <Tab.Screen name='Data'
+            <Tab.Screen
+                name='Data'
                 component={Data}
                 options={{
-                    headerTintColor: '#fff',
-                    headerStyle: {
-                        backgroundColor: '#19cd21',
-                    },
+                    headerShown: false,
                     tabBarIcon: ({ size, color }) => {
                         return (
                             <Ionicons
                                 name='server-outline'
                                 size={size}
-                                color={color}
-                            />
+                                color={color} />
                         );
                     }
                 }} />
             <Tab.Screen name='Map'
                 component={Map}
                 options={{
-                    headerTintColor: '#fff',
-                    headerStyle: {
-                        backgroundColor: '#19cd21',
-                    },
+                    headerShown: false,
                     tabBarIcon: ({ size, color }) => {
                         return (
                             <Ionicons
@@ -87,10 +75,7 @@ const AppMenu = () => {
             <Tab.Screen name='Settings'
                 component={Settings}
                 options={{
-                    headerTintColor: '#fff',
-                    headerStyle: {
-                        backgroundColor: '#19cd21',
-                    },
+                    headerShown: false,
                     tabBarIcon: ({ size, color }) => {
                         return (
                             <Ionicons

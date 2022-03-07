@@ -1,7 +1,7 @@
 "use strict"
 
 import React, { useState } from 'react';
-import { Alert, StyleSheet, Image, Text, TouchableOpacity, TextInput, SafeAreaView, ScrollView, Switch, StatusBar, Dimensions, Modal } from 'react-native';
+import { Alert, Dimensions, Image, Modal, SafeAreaView, ScrollView, Switch, StatusBar, StyleSheet, Text, TouchableOpacity, TextInput } from 'react-native';
 import { Card } from 'react-native-elements'
 import { AntDesign, Ionicons } from '@expo/vector-icons';
 import axios from 'axios';
@@ -26,9 +26,11 @@ const Upload = ({ route, navigation: { setParams } }) => {
         const [items, setItems] = useState([
             { label: 'Aluminium', value: 'Aluminium' },
             { label: 'Cigarettes', value: 'Cigarettes' },
+            { label: 'Electrical appliances', value: 'Electrical appliances' },
             { label: 'Glasses', value: 'Glasses' },
             { label: 'Metal', value: 'Metal' },
             { label: 'Organic waste', value: 'Organic waste' },
+            { label: 'Other garbage', value: 'Other garbage' },
             { label: 'Plastic', value: 'Plastic' },
         ]);
 
@@ -54,7 +56,7 @@ const Upload = ({ route, navigation: { setParams } }) => {
 
                 const response = await fetch("http://178.18.252.126:1337/upload", requestConfig);
                 let responseJson = await response.json();
-
+                console.log(responseJson)
                 axios.post("http://178.18.252.126:1337/litters", {
                     latitude: latitude,
                     longitude: longitude,
@@ -105,6 +107,7 @@ const Upload = ({ route, navigation: { setParams } }) => {
             }
         }
 
+        // Dialog before sending Litter
         const confirmLitterSendDialog = () => {
             Alert.alert(
                 "Submit post",
@@ -154,7 +157,7 @@ const Upload = ({ route, navigation: { setParams } }) => {
                                     value={text}
                                     onChangeText={(text) => setParams({ text: text })}
                                     placeholder="Type some descriptions in"
-                                    placeholderTextColor={"green"}
+                                    placeholderTextColor={"#19cd21"}
                                     keyboardType='default' />
                             </SafeAreaView>
 
@@ -216,13 +219,11 @@ const Upload = ({ route, navigation: { setParams } }) => {
 
                             <SafeAreaView style={styles.sendButtonContainer}>
                                 <TouchableOpacity
-                                    activeOpacity={10}
+                                    style={styles.sendButton}
                                     disabled={isDisabled}
+                                    size={SCREEN_HEIGHT * 0.07}
                                     onPress={() => confirmLitterSendDialog()} >
-                                    < Ionicons
-                                        color="green"
-                                        name="send-outline"
-                                        size={SCREEN_HEIGHT * 0.07} />
+                                    <Text>Send litter</Text>
                                 </TouchableOpacity>
                             </SafeAreaView>
                         </SafeAreaView>
@@ -255,7 +256,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#fff',
+        backgroundColor: '#ffffff'
     },
     dropdownContainer: {
         alignSelf: 'center',
@@ -265,11 +266,11 @@ const styles = StyleSheet.create({
         width: 140,
         borderWidth: 1,
         borderRadius: 10,
-        borderColor: "green"
+        borderColor: "#19cd21"
     },
     inputContainer: {
         justifyContent: 'center',
-        alignItems: 'center',
+        alignItems: 'center'
     },
     input: {
         height: 40,
@@ -278,11 +279,11 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         padding: 10,
         borderRadius: 10,
-        borderColor: "green"
+        borderColor: "#19cd21"
     },
     modalContainer: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#ffffff'
     },
     modalCloseContainer: {
         flexDirection: "row",
@@ -299,23 +300,33 @@ const styles = StyleSheet.create({
     modalPhoto: {
         width: 200,
         height: 200,
-        borderRadius: 10,
+        borderRadius: 10
     },
     photo: {
         borderRadius: 10,
         width: 250,
-        height: 250,
+        height: 250
     },
     sendButtonContainer: {
+        flex: 1,
         justifyContent: 'flex-end',
-        alignContent: 'flex-end',
+        alignItems: "center",
         alignSelf: 'flex-end',
         marginRight: 10,
-        marginBottom: 10
+        height: 40,
+        width: 80,
+        borderRadius: 10,
+
+    },
+    sendButton: {
+        alignItems: "center",
+        backgroundColor: "#19cd21",
+        padding: 10,
+        borderRadius: 10
     },
     switchContainer: {
         justifyContent: 'center',
-        alignItems: 'center',
+        alignItems: 'center'
     },
     switch: {
         margin: 40
@@ -326,9 +337,9 @@ const styles = StyleSheet.create({
         marginTop: 50
     },
     toolTipBox: {
-        backgroundColor: 'green',
+        backgroundColor: '#19cd21',
         width: 85,
-        height: 38,
+        height: 38
     }
 })
 

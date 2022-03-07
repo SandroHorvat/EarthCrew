@@ -1,3 +1,5 @@
+"use strict"
+
 import { View, StyleSheet, Image } from 'react-native';
 import React, { useState } from 'react';
 import UserModel from '../../../app/models/UserModel';
@@ -36,7 +38,7 @@ const Login = ({ navigation }) => {
 
             try {
                 if (await user.login()) {
-                    navigation.navigate("App", { screen: 'Camera' })
+                    navigation.navigate("App", { screen: 'Upload' })
                     setLoading(false);
                 }
             } catch (err) {
@@ -125,7 +127,7 @@ const styles = StyleSheet.create({
         paddingRight: 16,
         alignContent: 'center',
         justifyContent: 'center',
-        backgroundColor: '#fff'
+        backgroundColor: '#ffffff'
 
     },
     btn: {

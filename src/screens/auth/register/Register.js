@@ -40,7 +40,7 @@ const Register = ({ navigation }) => {
         } else if (!validEmail.test(email)) {
             showToastEmailWrong()
         }
-        else if (password.length <= 7) {
+        else if (password.length < 6) {
             showToastPasswordTooShort()
         }
         else {
@@ -163,10 +163,10 @@ const Register = ({ navigation }) => {
                         isVisible={showTip}
                         content={<Text>
                             We have no special password guidelines but we consider you to create a password with this rules:{"\n"}{"\n"}
-                            The only fixed rule is that the password must be longer than 6 characters.{"\n"}{"\n"}
                             • A mixture of both uppercase and lowercase letters{"\n"}
                             • A mixture of letters and numbers{"\n"}
-                            • Inclusion of at least one special character, e.g., ! @ # ? ]</Text>}
+                            • Inclusion of at least one special character, e.g., ! @ # ? ]{"\n"}{"\n"}
+                            The only fixed password rule is that the password must have at least 6 characters.</Text>}
                         placement="center"
                         tooltipStyle
                         onClose={() => setTip(false)}

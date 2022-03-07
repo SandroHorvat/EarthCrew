@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
@@ -15,33 +14,60 @@ const DataDetails = () => {
         Inter_900Black,
     });
 
-
+    // Load the amount of the litters set state and load new litters every 3 seconds - then show it in the Data Screen
     useEffect(() => {
+        let interval
+        const getAmountLitters = async () => {
+            try {
+                axios({
+                    method: 'get',
+                    url: `${baseUrl}/litters/count`,
+                }).then((response) => {
+                    setData(response.data);
+                }).catch(function (error) {
+                    console.log(error)
+                })
+            } catch (error) {
+                console.log("error", error)
+            }
+        }
         getAmountLitters()
-        getAmountUsers()
+
+        interval = setInterval(() => {
+            getAmountLitters()
+        }, 2 * 1000)
+        return () => {
+            clearInterval(interval)
+        }
     }, [])
 
-    function getAmountLitters() {
-        axios({
-            method: 'get',
-            url: `${baseUrl}/litters/count`,
-        }).then((response) => {
-            setData(response.data);
-        }).catch(function (error) {
-            console.log(error)
-        })
-    }
+    // Load the amount of the users set state and load new users every 3 seconds - then show it in the Data Screen
+    useEffect(() => {
+        let interval
+        const getAmountUsers = async () => {
+            try {
+                axios({
+                    method: 'get',
+                    url: `${baseUrl}/users/count`,
+                }).then((response) => {
+                    setUserData(response.data);
+                }).catch(function (error) {
+                    console.log(error)
+                })
+            } catch (error) {
+                console.log("error", error)
+            }
+        }
+        getAmountUsers()
 
-    function getAmountUsers() {
-        axios({
-            method: 'get',
-            url: `${baseUrl}/users/count`,
-        }).then((response) => {
-            setUserData(response.data);
-        }).catch(function (error) {
-            console.log(error)
-        })
-    }
+        interval = setInterval(() => {
+            getAmountUsers()
+        }, 2 * 1000)
+        return () => {
+            clearInterval(interval)
+        }
+    }, [])
+
 
     if (!fontsLoaded) {
         return <AppLoading />;
@@ -78,7 +104,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         alignContent: 'center',
-        backgroundColor: '#fff'
+        backgroundColor: 'white'
     },
     SquareShapeAmountLitters: {
         flexDirection: 'column',
@@ -98,7 +124,7 @@ const styles = StyleSheet.create({
         width: 150,
         height: 150,
         borderRadius: 15,
-        backgroundColor: '#ff956c',
+        backgroundColor: '#ffaa89',
         margin: 20
     },
     textAmountLitters: {

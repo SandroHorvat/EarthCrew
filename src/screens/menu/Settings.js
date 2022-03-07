@@ -2,23 +2,20 @@
 
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Button, Image, StyleSheet, TouchableOpacity, Text, View } from 'react-native';
-import React, { useState, useEffect } from 'react';
 import { useRecoilState } from 'recoil'
 import { userIdState } from '../../../atoms';
 
 const Settings = ({ navigation }) => {
-    const [userID, setUserID] = useRecoilState(userIdState)
+    const [userID] = useRecoilState(userIdState)
 
     return (
         <View style={styles.container}>
             <View style={styles.header}></View>
             <Image style={styles.avatar} source={{ uri: 'https://www.icmetl.org/wp-content/uploads/2020/11/user-icon-human-person-sign-vector-10206693.png.webp' }} />
+            
             <View style={styles.body}>
+            
                 <View style={styles.bodyContent}>
-                    <Text style={styles.name}>John Doe</Text>
-                    <Text style={styles.info}>UX Designer / Mobile developer</Text>
-                    <Text style={styles.description}>Lorem ipsum dolor sit amet, saepe sapientem eu nam. Qui ne assum electram expetendis, omittam deseruisse consequuntur ius an,</Text>
-
                     <TouchableOpacity style={styles.buttonContainer}>
                         <Text>Logged in with this account: {userID} </Text>
                     </TouchableOpacity>
@@ -28,7 +25,6 @@ const Settings = ({ navigation }) => {
                             navigation.navigate("Login")
                         }} />
                     </TouchableOpacity>
-
                 </View>
             </View>
         </View>
@@ -36,10 +32,6 @@ const Settings = ({ navigation }) => {
 }
 
 const styles = StyleSheet.create({
-    header: {
-        backgroundColor: "#b5ff9a",
-        height: 200,
-    },
     avatar: {
         width: 130,
         height: 130,
@@ -50,35 +42,6 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         position: 'absolute',
         marginTop: 130
-    },
-    name: {
-        fontSize: 22,
-        color: "#FFFFFF",
-        fontWeight: '600',
-    },
-    body: {
-        marginTop: 40,
-    },
-    bodyContent: {
-        flex: 1,
-        alignItems: 'center',
-        padding: 30,
-    },
-    name: {
-        fontSize: 28,
-        color: "#696969",
-        fontWeight: "600"
-    },
-    info: {
-        fontSize: 16,
-        color: "#00BFFF",
-        marginTop: 10
-    },
-    description: {
-        fontSize: 16,
-        color: "#696969",
-        marginTop: 10,
-        textAlign: 'center'
     },
     buttonContainer: {
         marginTop: 10,
@@ -91,6 +54,18 @@ const styles = StyleSheet.create({
         borderRadius: 30,
         backgroundColor: '#b5ff9a',
     },
+    body: {
+        marginTop: 40
+    },
+    bodyContent: {
+        flex: 1,
+        alignItems: 'center',
+        padding: 30
+    },
+    header: {
+        backgroundColor: "#b5ff9a",
+        height: 200
+    }
 });
 
 export default Settings;
