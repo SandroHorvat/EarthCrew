@@ -1,3 +1,5 @@
+"use strict"
+
 /**
  * User model as defined in Strapi
  */

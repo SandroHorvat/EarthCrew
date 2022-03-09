@@ -31,7 +31,7 @@ const Upload = ({ route, navigation: { setParams } }) => {
             { label: 'Metal', value: 'Metal' },
             { label: 'Organic waste', value: 'Organic waste' },
             { label: 'Other garbage', value: 'Other garbage' },
-            { label: 'Plastic', value: 'Plastic' },
+            { label: 'Plastic', value: 'Plastic' }
         ]);
 
         // Report litter
@@ -134,11 +134,10 @@ const Upload = ({ route, navigation: { setParams } }) => {
 
         // onRequestClose for Android User
         return (
-
             <SafeAreaView style={styles.container}>
 
                 <TouchableOpacity onPress={() => setModalOpen(true)}>
-                    <Animatable.Image animation={"zoomIn"} iterationCount={"infinite"} direction="alternate-reverse" style={styles.photo} source={{ uri: photo.uri }} easing={"ease"} />
+                    <Animatable.Image animation={"pulse"} iterationCount={"infinite"} direction="alternate-reverse" style={styles.photo} source={{ uri: photo.uri }} easing={"ease"} />
                 </TouchableOpacity>
 
                 <Modal visible={modalOpen} animationType='slide' onRequestClose={() => setModalOpen(false)}>
@@ -229,6 +228,7 @@ const Upload = ({ route, navigation: { setParams } }) => {
                         </SafeAreaView>
                     </ScrollView>
                 </Modal >
+
             </SafeAreaView >
         );
     } else {
@@ -315,8 +315,7 @@ const styles = StyleSheet.create({
         marginRight: 10,
         height: 40,
         width: 80,
-        borderRadius: 10,
-
+        borderRadius: 10
     },
     sendButton: {
         alignItems: "center",

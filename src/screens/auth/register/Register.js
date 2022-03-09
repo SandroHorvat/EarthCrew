@@ -137,20 +137,18 @@ const Register = ({ navigation }) => {
 
                     <View style={styles.containerPassword}>
                         <TextInput
-                            style={{ height: 60, flex: 1, alignSelf: 'stretch', paddingHorizontal: 10, backgroundColor: '#e3e3e3' }}
+                            style={{ height: 60, flex: 1, alignSelf: 'stretch', backgroundColor: '#e3e3e3' }}
                             onChangeText={text => setPassword(text)}
                             value={password}
                             secureTextEntry={!visible}
                             label="*Password"
-                            underlineColor="transparent"
-                        />
+                            underlineColor="transparent" />
                         <Icon
                             name={icon}
-                            size={20}
                             color={'#9e9e9e'}
                             onPress={() => setVisible(!visible)}
-                            style={[styles.icons, { height: 60, width: 30 }]}
-                        />
+                            size={20}
+                            style={[styles.icons, { height: 70, width: 30 }]} />
                     </View>
 
                     <PasswordStrengthMeter password={password} />
@@ -194,7 +192,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 35,
         lineHeight: 35,
-        fontWeight: '700',
+        fontWeight: '700'
     },
     backButton: {
         alignItems: 'flex-start',
@@ -216,7 +214,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         alignSelf: 'stretch',
-        borderColor: '#e3e3e3',
+        borderColor: '#e3e3e3'
     },
     header: {
         justifyContent: 'center',
@@ -225,8 +223,9 @@ const styles = StyleSheet.create({
     },
     icons: {
         backgroundColor: '#e3e3e3',
-        textAlign: 'center',
-        textAlignVertical: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignContent: 'center'
     },
     infoBox: {
         justifyContent: 'center',

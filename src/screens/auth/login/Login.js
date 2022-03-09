@@ -78,18 +78,15 @@ const Login = ({ navigation }) => {
                     style={{ height: 60, flex: 1, alignSelf: 'stretch', backgroundColor: '#e3e3e3' }}
                     onChangeText={text => setPassword(text)}
                     value={password}
-                    placeholder={"Hallo"}
                     secureTextEntry={!visible}
                     label="*Password"
-                    underlineColor="transparent"
-                />
+                    underlineColor="transparent" />
                 <Icon
                     name={icon}
                     color={'#9e9e9e'}
                     onPress={() => setVisible(!visible)}
                     size={20}
-                    style={[styles.icons, { height: 70, width: 30 }]}
-                />
+                    style={[styles.icons, { height: 70, width: 30 }]} />
             </View>
 
             <Button
@@ -119,7 +116,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 30,
         lineHeight: 35,
-        fontWeight: '700',
+        fontWeight: '700'
     },
     container: {
         flex: 1,
@@ -128,7 +125,6 @@ const styles = StyleSheet.create({
         alignContent: 'center',
         justifyContent: 'center',
         backgroundColor: '#ffffff'
-
     },
     btn: {
         height: 50,
@@ -144,10 +140,10 @@ const styles = StyleSheet.create({
         marginBottom: 30
     },
     divider: {
-        height: 16,
+        height: 16
     },
     headline: {
-        fontSize: 30,
+        fontSize: 30
     },
     header: {
         justifyContent: 'center',
@@ -160,7 +156,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#e3e3e3',
         justifyContent: 'center',
         alignItems: 'center',
-        alignContent: 'center',
+        alignContent: 'center'
     },
     logo: {
         justifyContent: 'center',

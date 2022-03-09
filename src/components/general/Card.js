@@ -1,7 +1,9 @@
-import { StyleSheet, View} from 'react-native';
+"use strict"
+
+import { StyleSheet, View } from 'react-native';
 
 const Card = () => {
-    
+
     const { photo } = route.params;
 
     return (

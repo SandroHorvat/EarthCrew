@@ -1,8 +1,7 @@
 "use strict"
 
 import zxcvbn from 'zxcvbn';
-import React, { useState } from 'react';
-import { StyleSheet, SafeAreaView, Text, TouchableOpacity, View, Alert, } from 'react-native';
+import { Text, View } from 'react-native';
 
 const PasswordStrengthMeter = ({ password }) => {
     const testResult = zxcvbn(password);
@@ -49,7 +48,6 @@ const PasswordStrengthMeter = ({ password }) => {
     })
 
     return (
-
         <View>
             <View style={{ height: 20 }}>
                 <View style={changePasswordColor()} />
@@ -60,6 +58,5 @@ const PasswordStrengthMeter = ({ password }) => {
         </View>
     )
 }
-
 
 export default PasswordStrengthMeter;

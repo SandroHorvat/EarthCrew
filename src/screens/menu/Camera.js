@@ -1,3 +1,5 @@
+"use strict"
+
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Camera as ExpoCamera } from 'expo-camera';
@@ -147,100 +149,100 @@ const Camera = ({ navigation }) => {
 
     return (
         <ExpoCamera
-        type={type}
-        onCameraReady={setCameraReady}
-        ratio={'4:3'}
-        style={styles.cameraScreen}
-        ref={ref => setCamera(ref)}
-        autoFocus='on'
-        flashMode={flashMode}>
-        <View style={styles.bottomRow}>
-            <TouchableOpacity
-                style={styles.flipButton}
-                onPress={() => {
-                    setType(
-                        type === ExpoCamera.Constants.Type.back
-                            ? ExpoCamera.Constants.Type.front
-                            : ExpoCamera.Constants.Type.back
-                    );
-                }}>
-                <Ionicons
-                    color="white"
-                    name="camera-reverse-outline"
-                    size={height * 0.08} />
-            </TouchableOpacity>
-            <TouchableOpacity
-                style={styles.cameraButton}
-                onPress={() => { capture(); resetList(); resetValueItems(); }}>
-                <Ionicons
-                    color="white"
-                    name="radio-button-on-outline"
-                    size={height * 0.08} />
-            </TouchableOpacity>
-            <TouchableOpacity
-                onPress={flashSwitchHandler}>
-                <Ionicons
-                    name={flashMode !== 'off'
-                        ? 'flash'
-                        : 'flash-off'}
-                    size={30}
-                    color="white"
-                    style={styles.flashModeButton} />
-            </TouchableOpacity>
-        </View>
-    </ExpoCamera >
-)
+            type={type}
+            onCameraReady={setCameraReady}
+            ratio={'4:3'}
+            style={styles.cameraScreen}
+            ref={ref => setCamera(ref)}
+            autoFocus='on'
+            flashMode={flashMode}>
+            <View style={styles.bottomRow}>
+                <TouchableOpacity
+                    style={styles.flipButton}
+                    onPress={() => {
+                        setType(
+                            type === ExpoCamera.Constants.Type.back
+                                ? ExpoCamera.Constants.Type.front
+                                : ExpoCamera.Constants.Type.back
+                        );
+                    }}>
+                    <Ionicons
+                        color="white"
+                        name="camera-reverse-outline"
+                        size={height * 0.08} />
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.cameraButton}
+                    onPress={() => { capture(); resetList(); resetValueItems(); }}>
+                    <Ionicons
+                        color="white"
+                        name="radio-button-on-outline"
+                        size={height * 0.08} />
+                </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={flashSwitchHandler}>
+                    <Ionicons
+                        name={flashMode !== 'off'
+                            ? 'flash'
+                            : 'flash-off'}
+                        size={30}
+                        color="white"
+                        style={styles.flashModeButton} />
+                </TouchableOpacity>
+            </View>
+        </ExpoCamera >
+    )
 }
 
 const { height, width } = Dimensions.get('window')
 
 const styles = StyleSheet.create({
 
-bottomRow: {
-    backgroundColor: 'transparent',
-    marginBottom: 15,
-    flex: 1,
-    flexDirection: 'row',
-    position: 'relative'
-},
-cameraScreen: {
-    height: height,
-    width: width,
-    flex: 1
-},
-cameraButton: {
-    backgroundColor: 'transparent',
-    position: 'absolute',
-    bottom: 5,
-    left: width * 0.35,
-    right: width * 0.35,
-    justifyContent: 'center',
-    alignItems: 'center',
-    zIndex: 1
-},
-container: {
-    flex: 1,
-    justifyContent: "center",
-    backgroundColor: '#fff',
-},
-flipButton: {
-    backgroundColor: 'transparent',
-    position: 'absolute',
-    left: 10,
-    bottom: 5,
-    flexDirection: "row",
-    justifyContent: "flex-end",
-},
-flashModeButton: {
-    position: 'absolute',
-    top: 40,
-    left: 10
-},
-horizontal: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center'
-}
+    bottomRow: {
+        backgroundColor: 'transparent',
+        marginBottom: 15,
+        flex: 1,
+        flexDirection: 'row',
+        position: 'relative'
+    },
+    cameraScreen: {
+        height: height,
+        width: width,
+        flex: 1
+    },
+    cameraButton: {
+        backgroundColor: 'transparent',
+        position: 'absolute',
+        bottom: 5,
+        left: width * 0.35,
+        right: width * 0.35,
+        justifyContent: 'center',
+        alignItems: 'center',
+        zIndex: 1
+    },
+    container: {
+        flex: 1,
+        justifyContent: "center",
+        backgroundColor: '#fff',
+    },
+    flipButton: {
+        backgroundColor: 'transparent',
+        position: 'absolute',
+        left: 10,
+        bottom: 5,
+        flexDirection: "row",
+        justifyContent: "flex-end",
+    },
+    flashModeButton: {
+        position: 'absolute',
+        top: 40,
+        left: 10
+    },
+    horizontal: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center'
+    }
 });
 
 

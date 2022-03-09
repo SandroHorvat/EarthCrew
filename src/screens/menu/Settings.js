@@ -6,15 +6,15 @@ import { useRecoilState } from 'recoil'
 import { userIdState } from '../../../atoms';
 
 const Settings = ({ navigation }) => {
+
     const [userID] = useRecoilState(userIdState)
 
     return (
         <View style={styles.container}>
             <View style={styles.header}></View>
             <Image style={styles.avatar} source={{ uri: 'https://www.icmetl.org/wp-content/uploads/2020/11/user-icon-human-person-sign-vector-10206693.png.webp' }} />
-            
+
             <View style={styles.body}>
-            
                 <View style={styles.bodyContent}>
                     <TouchableOpacity style={styles.buttonContainer}>
                         <Text>Logged in with this account: {userID} </Text>
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         width: 250,
         borderRadius: 30,
-        backgroundColor: '#b5ff9a',
+        backgroundColor: '#b5ff9a'
     },
     body: {
         marginTop: 40

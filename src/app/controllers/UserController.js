@@ -1,3 +1,5 @@
+"use strict"
+
 import { saveUser, deleteUser } from '../../redux/actions/UserActions';
 
 /**

@@ -32,7 +32,7 @@ const Map = () => {
         })();
     }, []);
 
-    // Load litters set state and load new litters every 5 seconds
+    // Load litters set state and load new litters every 2 seconds
     useEffect(() => {
         let interval
         const fetchData = async () => {

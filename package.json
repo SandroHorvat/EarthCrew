@@ -25,6 +25,7 @@
     "expo-permissions": "~13.1.0",
     "expo-updates": "^0.11.6",
     "install": "^0.13.0",
+    "lottie-react-native": "^5.0.1",
     "npm": "^8.3.0",
     "parse": "^3.4.1",
     "react": "17.0.1",
