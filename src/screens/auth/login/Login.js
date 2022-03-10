@@ -89,6 +89,7 @@ const Login = ({ navigation }) => {
             </View>
 
             <Button
+                color='#9AB0A7'
                 loading={loading}
                 disabled={loading}
                 style={styles.btn}
@@ -98,6 +99,7 @@ const Login = ({ navigation }) => {
             </Button>
 
             <Button
+                color='#9AB0A7'
                 loading={loading}
                 disabled={loading}
                 style={styles.btn}

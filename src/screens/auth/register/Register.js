@@ -110,7 +110,7 @@ const Register = ({ navigation }) => {
 
             <SafeAreaView>
                 <ScrollView>
-                    <Button onPress={() => { navigation.goBack() }} style={styles.backButton}><Text>Back</Text></Button>
+                    <Button onPress={() => { navigation.goBack() }} style={styles.backButton} color='#9AB0A7'><Text>Back</Text></Button>
 
                     <View style={styles.header}>
                         <Headline style={styles.appTitle}>EarthCrew</Headline>
@@ -153,7 +153,7 @@ const Register = ({ navigation }) => {
 
                     <PasswordStrengthMeter password={password} />
 
-                    <Button style={styles.registerButton} onPress={() => { register() }}><Text>Register</Text></Button>
+                    <Button style={styles.registerButton} onPress={() => { register() }} color='#9AB0A7'><Text>Register</Text></Button>
 
                     <Toast />
 

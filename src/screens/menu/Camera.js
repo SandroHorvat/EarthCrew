@@ -139,7 +139,7 @@ const Camera = ({ navigation }) => {
     // Show the loading screen until location is loaded
     if (location == null) {
         return (
-            <View style={[styles.containerLoading, styles.horizontal]}>
+            <View style={[styles.container, styles.horizontal]}>
                 <View>
                     <ActivityIndicator size="large" color={"green"} />
                 </View>
