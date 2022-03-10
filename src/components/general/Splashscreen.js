@@ -1,12 +1,12 @@
+"use strict"
 
-import { Dimensions, Image, View, SafeAreaView, StyleSheet } from 'react-native';
+import { Image, SafeAreaView, StyleSheet } from 'react-native';
 import { useState, useEffect } from 'react';
 import LottieView from 'lottie-react-native';
 
 const Splashscreen = ({ navigation }) => {
 
     const [authLoaded, setAuthLoaded] = useState(false);
-    const { height, width } = Dimensions.get('window')
 
     useEffect(() => {
         setTimeout(() => {
@@ -35,7 +35,6 @@ const Splashscreen = ({ navigation }) => {
 }
 
 const styles = StyleSheet.create({
-
     image: {
         justifyContent: 'center',
         alignItems: 'center',
@@ -48,8 +47,8 @@ const styles = StyleSheet.create({
     },
     lottieView: {
         alignSelf: 'center',
-        width: 100,
-        height: 100
+        width: 200,
+        height: 200
     }
 })
 

@@ -139,9 +139,9 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "center",
         borderRadius: 8,
-        backgroundColor: '#b5ff9a',
-        width: 250,
-        height: 260
+        backgroundColor: '#9AB0A7',
+        width: 300,
+        height: 300
     },
     container: {
         flex: 1,
@@ -155,16 +155,16 @@ const styles = StyleSheet.create({
     },
     image: {
         alignSelf: 'center',
-        width: 140,
-        height: 140,
+        width: 180,
+        height: 180,
         margin: 20,
-        borderRadius: 8
+        borderRadius: 6
     },
     map: {
         ...StyleSheet.absoluteFillObject
     },
     markerCalloutText: {
-        fontSize: 12
+        fontSize: 13
     }
 });
 

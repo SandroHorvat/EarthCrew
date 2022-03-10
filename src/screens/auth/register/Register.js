@@ -230,7 +230,7 @@ const styles = StyleSheet.create({
     infoBox: {
         justifyContent: 'center',
         alignSelf: 'center',
-        backgroundColor: 'green',
+        backgroundColor: '#9AB0A7',
         width: 85,
         height: 38,
         padding: 10,

@@ -156,7 +156,7 @@ const Upload = ({ route, navigation: { setParams } }) => {
                                     value={text}
                                     onChangeText={(text) => setParams({ text: text })}
                                     placeholder="Type some descriptions in"
-                                    placeholderTextColor={"#19cd21"}
+                                    placeholderTextColor={"#9AB0A7"}
                                     keyboardType='default' />
                             </SafeAreaView>
 
@@ -233,8 +233,8 @@ const Upload = ({ route, navigation: { setParams } }) => {
         );
     } else {
         return <SafeAreaView style={styles.container}>
-            <Text style={{ margin: 20, fontSize: 30, color: '#19cd21' }}>First take a photo</Text>
-            <AntDesign name="camerao" size={100} color="#19cd21" />
+            <Text style={{ margin: 20, fontSize: 30, color: '#9AB0A7' }}>First take a photo</Text>
+            <AntDesign name="camerao" size={100} color="#9AB0A7" />
         </SafeAreaView>
     }
 }
@@ -266,7 +266,7 @@ const styles = StyleSheet.create({
         width: 140,
         borderWidth: 1,
         borderRadius: 10,
-        borderColor: "#19cd21"
+        borderColor: "#9AB0A7"
     },
     inputContainer: {
         justifyContent: 'center',
@@ -279,7 +279,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         padding: 10,
         borderRadius: 10,
-        borderColor: "#19cd21"
+        borderColor: "#9AB0A7"
     },
     modalContainer: {
         flex: 1,
@@ -313,13 +313,13 @@ const styles = StyleSheet.create({
         alignItems: "center",
         alignSelf: 'flex-end',
         marginRight: 10,
-        height: 40,
-        width: 80,
+        height: 50,
+        width: 90,
         borderRadius: 10
     },
     sendButton: {
         alignItems: "center",
-        backgroundColor: "#19cd21",
+        backgroundColor: "#9AB0A7",
         padding: 10,
         borderRadius: 10
     },
@@ -336,7 +336,7 @@ const styles = StyleSheet.create({
         marginTop: 50
     },
     toolTipBox: {
-        backgroundColor: '#19cd21',
+        backgroundColor: '#9AB0A7',
         width: 85,
         height: 38
     }

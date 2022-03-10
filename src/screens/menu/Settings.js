@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         width: 250,
         borderRadius: 30,
-        backgroundColor: '#b5ff9a'
+        backgroundColor: '#9AB0A7'
     },
     body: {
         marginTop: 40
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
         padding: 30
     },
     header: {
-        backgroundColor: "#b5ff9a",
+        backgroundColor: "#9AB0A7",
         height: 200
     }
 });

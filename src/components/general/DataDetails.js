@@ -134,7 +134,7 @@ const DataDetails = () => {
             <SafeAreaView style={styles.container}>
                 <View>
                     <View style={styles.SquareShapeAmountLitters} >
-                        <Icon name="trash-o" size={50} color={'#4981f7'} />
+                        <Icon name="trash-o" size={50} color={'black'} />
                         <Text style={styles.textAmountLitters}>
                             {data}
                             {"\n"}Total litters
@@ -142,7 +142,7 @@ const DataDetails = () => {
                     </View>
 
                     <View style={styles.SquareShapeAmountLitterPickedUp} >
-                        <Icon name="check" size={50} color={'#008b02'} />
+                        <Icon name="check" size={50} color={'black'} />
                         <Text style={styles.textAmountLitterPickedUp}>
                             {litterPickedUpData}
                             {"\n"}Picked up
@@ -152,14 +152,14 @@ const DataDetails = () => {
 
                 <View>
                     <View style={styles.SquareShapeAmountUser} >
-                        <Icon name="user-o" size={50} color={'#ff5d1d'} />
+                        <Icon name="user-o" size={50} color={'black'} />
                         <Text style={styles.textAmountUser}>
                             {userData}
                             {"\n"}Users registered
                         </Text>
                     </View>
                     <View style={styles.SquareShapeAmountLitterNotPickedUp} >
-                        <Icon name="close" size={50} color={'#ba0000'} />
+                        <Icon name="close" size={50} color={'black'} />
                         <Text style={styles.textAmountLitterNotPickedUp}>
                             {litterNotPickedUpData}
                             {"\n"}Not picked up
@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center',
+        alignItems: 'center'
     },
     SquareShapeAmountLitters: {
         flexDirection: 'column',
@@ -185,8 +185,8 @@ const styles = StyleSheet.create({
         width: 150,
         height: 150,
         borderRadius: 15,
-        backgroundColor: '#a8c4ff',
-        margin: 10,
+        backgroundColor: '#5D7068',
+        margin: 10
     },
     SquareShapeAmountUser: {
         flexDirection: 'column',
@@ -196,7 +196,7 @@ const styles = StyleSheet.create({
         width: 150,
         height: 150,
         borderRadius: 15,
-        backgroundColor: '#ffaa89',
+        backgroundColor: '#5D7068',
         margin: 10,
         marginBottom: 10
     },
@@ -208,7 +208,7 @@ const styles = StyleSheet.create({
         width: 150,
         height: 150,
         borderRadius: 15,
-        backgroundColor: '#92ff50',
+        backgroundColor: '#5D7068',
         margin: 10,
         marginBottom: 10
     },
@@ -220,7 +220,7 @@ const styles = StyleSheet.create({
         width: 150,
         height: 150,
         borderRadius: 15,
-        backgroundColor: '#ff5d5d',
+        backgroundColor: '#5D7068',
         margin: 10,
         marginBottom: 10
     },
@@ -230,7 +230,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         alignContent: 'center',
         fontFamily: 'Inter_900Black',
-        color: '#4981f7',
+        color: 'black',
         marginTop: 20
     },
     textAmountUser: {
@@ -239,7 +239,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         alignContent: 'center',
         fontFamily: 'Inter_900Black',
-        color: '#ff5d1d',
+        color: 'black',
         marginTop: 20
     },
     textAmountLitterPickedUp: {
@@ -248,7 +248,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         alignContent: 'center',
         fontFamily: 'Inter_900Black',
-        color: '#008b02',
+        color: 'black',
         marginTop: 20
     },
     textAmountLitterNotPickedUp: {
@@ -257,7 +257,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         alignContent: 'center',
         fontFamily: 'Inter_900Black',
-        color: '#600707',
+        color: 'black',
         marginTop: 20
     }
 })

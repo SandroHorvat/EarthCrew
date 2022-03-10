@@ -15,9 +15,9 @@ const AppMenu = () => {
     return (
         <Tab.Navigator
             screenOptions={{
-                tabBarActiveTintColor: '#ffffff',
+                tabBarActiveTintColor: 'black',
                 tabBarStyle: {
-                    backgroundColor: '#19cd21'
+                    backgroundColor: '#9AB0A7'
                 }
             }}>
             <Tab.Screen

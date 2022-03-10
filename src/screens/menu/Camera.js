@@ -86,9 +86,10 @@ const Camera = ({ navigation }) => {
         })();
     }, []);
 
-    // Loading the actual position of user
+    // Loading the actual position of user and set state new every 2 seconds
     useEffect(() => {
-        (async () => {
+        let interval
+        const loadPosition = async () => {
             const { status } = await Location.requestForegroundPermissionsAsync();
             if (status !== 'granted') {
                 setErrorMsg('Permission to access location was denied');
@@ -96,8 +97,16 @@ const Camera = ({ navigation }) => {
             }
             const location = await Location.getCurrentPositionAsync();
             setLocation(location);
-        })();
-    }, []);
+        }
+        loadPosition()
+
+        interval = setInterval(() => {
+            loadPosition()
+        }, 2 * 1000)
+        return () => {
+            clearInterval(interval)
+        }
+    }, [])
 
     // Taking a picture
     const capture = async () => {
@@ -116,7 +125,6 @@ const Camera = ({ navigation }) => {
 
     // Reset the state of the valueItems in upload to null
     const resetValueItems = useResetRecoilState(valueItemsState);
-
 
     // Checking the flashMode
     const flashSwitchHandler = () => {
@@ -223,7 +231,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: "center",
-        backgroundColor: '#fff',
+        backgroundColor: '#fff'
     },
     flipButton: {
         backgroundColor: 'transparent',
@@ -231,7 +239,7 @@ const styles = StyleSheet.create({
         left: 10,
         bottom: 5,
         flexDirection: "row",
-        justifyContent: "flex-end",
+        justifyContent: "flex-end"
     },
     flashModeButton: {
         position: 'absolute',

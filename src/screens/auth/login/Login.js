@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import UserModel from '../../../app/models/UserModel';
 import { useRecoilState } from 'recoil';
 import { userIdState } from '../../../../atoms';
-import { Button, Headline, Paragraph, TextInput } from 'react-native-paper';
+import { Button, Paragraph, TextInput } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Login = ({ navigation }) => {
@@ -38,7 +38,7 @@ const Login = ({ navigation }) => {
 
             try {
                 if (await user.login()) {
-                    navigation.navigate("App", { screen: 'Upload' })
+                    navigation.navigate("App", { screen: 'Map' })
                     setLoading(false);
                 }
             } catch (err) {
@@ -57,7 +57,6 @@ const Login = ({ navigation }) => {
         <View style={styles.container}>
 
             <View style={styles.header}>
-                <Headline style={styles.appTitle}>Enter the EarthCrew App</Headline>
                 <Paragraph>
                     <Image
                         style={styles.logo}
